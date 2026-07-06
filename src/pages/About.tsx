@@ -48,7 +48,7 @@ export default function About() {
           <div className="mt-4 space-y-4 text-lg leading-relaxed text-ink/80">
             <p>
               Ombaka's case for Dagoretti North doesn't start with a campaign
-              launch — it starts with a job he already holds. He is the
+              launch. It starts with a job he already holds. He is the
               current chairperson of the Kileleshwa Ward Neighbourhood
               Association (KIWANA), the body residents have already entrusted
               to represent their interests at the ward level.
@@ -72,14 +72,14 @@ export default function About() {
               consumer products SME operating in Nairobi and Migori County.
               Running a business in Kenya's regulatory and tax environment
               means he understands, firsthand, what it takes for an
-              honest enterprise to survive and grow — and what stands in its
+              honest enterprise to survive and grow, and what stands in its
               way.
             </p>
             <p>
               He also runs his own consultancy, Wazo Africa. Between the two,
               he's spent years on the operating side of the economy this
               constituency depends on: the small businesses, traders, and
-              informal workers who carry Dagoretti North — the same people
+              informal workers who carry Dagoretti North, the same people
               his "Jobs & Dignity" commitment is built around.
             </p>
           </div>
@@ -92,15 +92,15 @@ export default function About() {
           <div className="mt-4 space-y-4 text-lg leading-relaxed text-ink/80">
             <p>
               As a policy consultant, Ombaka is currently working on market
-              systems as a development approach in Northern Kenya — including
+              systems as a development approach in Northern Kenya, including
               helping set up regulatory systems for rangeland management, and
               reviewing national policy on marginalization in the region.
             </p>
             <p>
               This is the unglamorous work of understanding how government
-              systems and public money actually move — the exact skillset an
-              accountability-focused MP needs to hold a budget line to
-              account, rather than just complain about it.
+              systems and public money actually move. It's the exact
+              skillset an accountability-focused MP needs to hold a budget
+              line to account, rather than just complain about it.
             </p>
           </div>
         </section>
@@ -114,8 +114,8 @@ export default function About() {
               Ombaka is a husband and a father, and an African Christian
               apologist by conviction. He holds strong views on God's
               redemptive purpose for enterprise, and on the central role of
-              social justice in building an environment where business — and
-              the people who depend on it — can genuinely thrive.
+              social justice in building an environment where business, and
+              the people who depend on it, can genuinely thrive.
             </p>
             <p>
               That conviction shows up in his service with the Hesabika
@@ -134,7 +134,7 @@ export default function About() {
             </h2>
             <p className="mt-3 text-white/85">
               Ombaka is standing for Member of Parliament, Dagoretti North on
-              one promise — that every taxpayer shilling is accounted for.
+              one promise: that every taxpayer shilling is accounted for.
               Join the campaign, or head to Get Involved to find your ward
               community.
             </p>

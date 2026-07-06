@@ -79,7 +79,7 @@ export function LeadCaptureForm({
         />
         <p className="font-serif text-lg font-semibold">You're on the list.</p>
         <p className="mt-1 text-sm opacity-90">
-          Thank you — a member of the campaign team will be in touch.{" "}
+          Thank you. A member of the campaign team will be in touch.{" "}
           {ward?.whatsappLink
             ? "Join the ward WhatsApp community now to get updates first."
             : "We'll text you the ward WhatsApp link the moment it's live."}

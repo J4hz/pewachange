@@ -22,7 +22,7 @@ export const pillars: Pillar[] = [
     title: "Real Representation",
     swahiliTag: "Sauti yako bungeni.",
     summary:
-      "An MP who shows up in the ward, not just at election time — regular public forums, open office hours, and a direct line back to residents.",
+      "An MP who shows up in the ward, not just at election time: regular public forums, open office hours, and a direct line back to residents.",
     detail: "",
     icon: Users,
   },
@@ -31,7 +31,7 @@ export const pillars: Pillar[] = [
     title: "Every Shilling Accounted For",
     swahiliTag: "Kila senti, uwazi.",
     summary:
-      "A public, plain-language tracker of CDF and local development funds — what was allocated, what was spent, and what residents can go and see for themselves.",
+      "A public, plain-language tracker of CDF and local development funds: what was allocated, what was spent, and what residents can go and see for themselves.",
     detail: "",
     icon: Receipt,
   },

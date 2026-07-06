@@ -21,7 +21,7 @@ export function StatBand() {
           </h2>
           <p className="mt-3 text-ink/70">
             Ushuru Imezidi, Maendeleo ni Kidogo. This is the gap Ombaka is
-            running to close — with figures the campaign will publish and
+            running to close, with figures the campaign will publish and
             source, not slogans.
           </p>
         </motion.div>

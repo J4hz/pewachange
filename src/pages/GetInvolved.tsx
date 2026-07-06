@@ -78,7 +78,7 @@ function ContactForm() {
         <CheckCircle2 className="mx-auto mb-3 h-10 w-10 text-berry" aria-hidden="true" />
         <p className="font-serif text-lg font-semibold">Message sent.</p>
         <p className="mt-1 text-sm opacity-90">
-          Thank you — the campaign team will get back to you.
+          Thank you. The campaign team will get back to you.
         </p>
       </div>
     );
@@ -198,7 +198,7 @@ export default function GetInvolved() {
     <>
       <SEO
         title="Get Involved"
-        description="Join your ward WhatsApp community, contact the campaign directly, or volunteer for Ombaka 2027 — the accountability campaign for Dagoretti North MP."
+        description="Join your ward WhatsApp community, contact the campaign directly, or volunteer for Ombaka 2027, the accountability campaign for Dagoretti North MP."
         path="/get-involved"
       />
 
@@ -299,8 +299,8 @@ export default function GetInvolved() {
               Volunteer or become a Ward Captain
             </h2>
             <p className="mt-3 text-white/85">
-              Tell us how you want to help — vote, volunteer, or lead as a
-              Ward Captain — and we'll follow up.
+              Tell us how you want to help: vote, volunteer, or lead as a
+              Ward Captain, and we'll follow up.
             </p>
           </div>
           <LeadCaptureForm

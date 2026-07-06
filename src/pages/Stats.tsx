@@ -22,7 +22,7 @@ export default function Stats() {
             Taxes up. Development down.
           </h1>
           <p className="mt-5 text-lg text-ink/70">
-            This page is built to hold verified, sourced figures — not
+            This page is built to hold verified, sourced figures, not
             estimates. Every stat cites where it came from. Where a figure
             isn&rsquo;t sourced yet, we say so rather than guess.
           </p>
@@ -52,10 +52,10 @@ export default function Stats() {
 
         <div className="border-2 border-dashed border-ink/30 p-6 text-sm text-ink/60">
           <p className="font-semibold text-ink">
-            TODO(campaign): supply verified constituency figures.
+            Verified constituency figures still need to be supplied.
           </p>
           <p className="mt-1">
-            Add sourced figures to <code>src/data/stats.ts</code> — e.g. from
+            Add sourced figures to <code>src/data/stats.ts</code>, e.g. from
             the Controller of Budget, the Auditor-General, the CDF board, or
             Nairobi County reports. Every figure should cite its source so
             residents can verify it themselves. Do not publish invented or

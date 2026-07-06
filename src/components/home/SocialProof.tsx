@@ -16,7 +16,7 @@ export function SocialProof() {
           <Users className="h-8 w-8 shrink-0 text-berry" aria-hidden="true" />
           {supporterCount === null ? (
             <p className="text-lg font-semibold text-ink">
-              This campaign just launched — be one of the first residents to
+              This campaign just launched. Be one of the first residents to
               join.
             </p>
           ) : (

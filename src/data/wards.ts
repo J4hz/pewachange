@@ -50,7 +50,7 @@ export const wards: Ward[] = [
     slug: "kabiro",
     name: "Kabiro",
     oneLiner:
-      "Jobs, dignified housing, and services that actually reach Kabiro — funded by taxes you already pay.",
+      "Jobs, dignified housing, and services that actually reach Kabiro, funded by taxes you already pay.",
     swahiliTag: "Kazi na heshima kwa kila mkazi.",
     whatsappLink: null,
   },

@@ -73,7 +73,7 @@ export const contactSchema = z.object({
   message: z
     .string()
     .trim()
-    .min(10, "Tell us a bit more — at least 10 characters")
+    .min(10, "Tell us a bit more (at least 10 characters)")
     .max(2000, "That message is too long"),
 });
 

@@ -28,7 +28,7 @@ export function BioTeaser() {
           </p>
           <p className="mt-2 max-w-2xl text-lg text-ink/80">
             An entrepreneur, policy expert, and chairperson of the
-            Kileleshwa Ward Neighbourhood Association (KIWANA) — already
+            Kileleshwa Ward Neighbourhood Association (KIWANA), already
             doing the work of representation before asking for the vote.
           </p>
           <Link

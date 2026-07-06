@@ -15,7 +15,7 @@ export function WardSelector() {
           </h2>
           <p className="mt-3 text-ink/70">
             Dagoretti North isn&rsquo;t one constituency with one problem.
-            Pick your ward to see what Ombaka is running on there — then join
+            Pick your ward to see what Ombaka is running on there, then join
             the ward WhatsApp community.
           </p>
         </div>
