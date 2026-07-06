@@ -17,7 +17,7 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-paper">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-24">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-4 sm:px-6 md:grid-cols-2 md:pb-24 md:pt-8">
         <div>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
