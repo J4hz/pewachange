@@ -16,9 +16,9 @@ export function Header() {
           className="flex items-center gap-2.5"
         >
           <img
-            src="/logo.png"
+            src="/logo-mark.png"
             alt=""
-            className="h-9 w-9 shrink-0 object-cover"
+            className="h-10 w-10 shrink-0 object-contain"
           />
           <span className="font-serif text-2xl font-semibold tracking-tight text-ink">
             {candidate.brandName}

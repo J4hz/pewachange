@@ -15,7 +15,7 @@ import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 import { contactSchema, type ContactFormValues } from "@/lib/validation";
 import { submitContactMessage } from "@/lib/contact";
 import { wards, type Ward } from "@/data/wards";
-import { contact } from "@/config/site";
+import { candidate, contact } from "@/config/site";
 
 function WardJoinCard({ ward }: { ward: Ward }) {
   const [open, setOpen] = useState(false);
@@ -233,6 +233,40 @@ export default function GetInvolved() {
           ))}
         </div>
       </section>
+
+      <section className="bg-cream-soft py-16 sm:py-20">
+        <div className="mx-auto grid max-w-4xl gap-8 px-4 sm:px-6 md:grid-cols-[auto,1fr] md:items-center">
+          <img
+            src="/logo.png"
+            alt={`${candidate.brandName} 2027 — #PewaChange`}
+            width={160}
+            height={160}
+            className="mx-auto h-32 w-32 shrink-0 border-2 border-ink object-cover shadow-stamp sm:h-36 sm:w-36"
+          />
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.15em] text-berry">
+              Not sure which ward group to join?
+            </p>
+            <h2 className="mt-3 font-serif text-3xl font-semibold text-ink sm:text-4xl">
+              Join the #PewaChange WhatsApp Community
+            </h2>
+            <p className="mt-3 max-w-xl text-ink/70">
+              One community, every ward, straight from the campaign. Get
+              updates, ask questions, and organise with fellow residents.
+            </p>
+            <a
+              href={contact.whatsappCommunity}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary mt-6 inline-flex"
+            >
+              <MessageCircle className="h-5 w-5" aria-hidden="true" />
+              Join the Community
+            </a>
+          </div>
+        </div>
+      </section>
+      <div className="ledger-rule text-ink/15" aria-hidden="true" />
 
       <section className="bg-ink py-16 text-white sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">

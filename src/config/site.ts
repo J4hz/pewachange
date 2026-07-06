@@ -46,6 +46,10 @@ export const contact = {
   phone: "+254100540540",
   phoneDisplay: "+254 100 540540",
   whatsapp: "https://wa.me/254100540540",
+  // General campaign-wide WhatsApp Community (separate from the per-ward
+  // groups in data/wards.ts) — for supporters who aren't sure which ward
+  // group to join, or want the umbrella community.
+  whatsappCommunity: "https://chat.whatsapp.com/F0aPvObApZGGy7d5T2lFD2",
 } as const;
 
 /** Where lead-capture form submissions are sent. See .env.example. */
