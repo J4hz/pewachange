@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  ::selection {
+    background-color: #b43052;
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 3px solid #b43052;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /*
+   * One primary button treatment, used everywhere a CTA appears (previously
+   * split between a flat black button and a berry outline button — this
+   * consolidates to a single premium interaction: a hard "stamp" shadow that
+   * compresses flat on press, like a rubber date-stamp.
+   */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-ink bg-berry px-6 py-3.5 text-base font-semibold text-white shadow-stamp transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgba(17,17,17,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:pointer-events-none disabled:opacity-60;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-ink bg-transparent px-6 py-3.5 text-base font-semibold text-ink transition-colors duration-150 hover:bg-ink hover:text-white;
+  }
+
+  /* For use on berry/ink dark bands, where the primary treatment above would clash. */
+  .btn-on-dark {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-white bg-white px-6 py-3.5 text-base font-semibold text-berry shadow-[4px_4px_0_0_rgba(255,255,255,0.35)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgba(255,255,255,0.35)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:pointer-events-none disabled:opacity-60;
+  }
+}
+
+@layer utilities {
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /*
+   * Hairline "ledger rule" — a ruler/engraved-plate divider (tick marks over
+   * a baseline) used between major sections instead of a plain border,
+   * reinforcing the audited-document motif structurally, not decoratively.
+   */
+  .ledger-rule {
+    height: 7px;
+    background-image: linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent calc(100% - 1px),
+        currentColor calc(100% - 1px)
+      ),
+      repeating-linear-gradient(
+        to right,
+        currentColor 0,
+        currentColor 1px,
+        transparent 1px,
+        transparent 8px
+      );
+    background-size:
+      100% 100%,
+      100% 60%;
+    background-position:
+      bottom,
+      top;
+    background-repeat: no-repeat, repeat-x;
+  }
+
+  /*
+   * Signature "tax receipt" perforated edge — used on stat/record cards.
+   * Deliberately a `background-image` (painted over the card's own
+   * background-color), NOT a `mask-image`: a mask with `repeat-x` only
+   * defines the tile in a thin top band and renders fully transparent
+   * everywhere else, hiding the whole card. A background-image has no such
+   * failure mode — anywhere it doesn't paint just falls through to
+   * background-color, so only the intended top strip is punched out.
+   */
+  .receipt-edge-top {
+    background-image: radial-gradient(
+      circle 6px at 8px 0px,
+      #fff 6px,
+      transparent 6.5px
+    );
+    background-repeat: repeat-x;
+    background-size: 16px 14px;
+    background-position: top;
+  }
+
+  .dotted-leader {
+    background-image: radial-gradient(
+      circle,
+      currentColor 1px,
+      transparent 1.5px
+    );
+    background-position: bottom;
+    background-size: 6px 4px;
+    background-repeat: repeat-x;
+  }
+}
