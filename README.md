@@ -50,6 +50,8 @@ accountability narrative wherever a number appears.
 - `/` — Home. Hero, ward selector, three pillars, a short bio teaser linking
   to Meet Ombaka, and a final CTA band.
 - `/about` — Meet Ombaka. The candidate's biography.
+- `/appearances` — In the Media. Every video, podcast, and article Ombaka has
+  featured in (see `src/data/appearances.ts`).
 - `/get-involved` — Join a ward WhatsApp community, contact the campaign
   directly, send a message, or volunteer / apply as a Ward Captain.
 
@@ -72,6 +74,7 @@ Edit `src/config/features.json`:
 {
   "about": true,
   "getInvolved": true,
+  "appearances": true,
   "plan": false,
   "stats": false,
   "news": false
@@ -103,6 +106,8 @@ All editable campaign content lives in `src/data/*.ts`:
 - `stats.ts` — the "Taxes up, development down" figures. `value` stays
   `null` until a real, sourced figure is supplied — fill in `value`, `unit`,
   and `sourceNote` together, and never invent a number.
+- `appearances.ts` — media appearances shown on `/appearances`. See
+  "Adding a media appearance" below.
 - `news.ts` — cards for the hidden `/news` page.
 - `socialProof.ts` — supporter counter, endorsements, ward captains, used by
   `<SocialProof>` (not currently rendered on Home — see below). Add real
@@ -110,6 +115,39 @@ All editable campaign content lives in `src/data/*.ts`:
 
 Candidate identity, contact details, and the canonical site URL are in
 `src/config/site.ts`.
+
+### Adding a media appearance
+
+Add an entry to the top of `appearances` in `src/data/appearances.ts` — the
+list is rendered newest-first, and the most recent entry becomes the large
+featured item at the top of `/appearances`:
+
+```ts
+{
+  id: "unique-slug",
+  kind: "video",          // "video" | "podcast" | "article"
+  title: "Headline as published",
+  outlet: "NTV Kenya",    // publisher/broadcaster
+  programme: "Fixing the Nation", // optional show or column name
+  date: "2026-07-15",     // ISO, YYYY-MM-DD
+  url: "https://www.youtube.com/watch?v=FBMFQPKRc7k",
+  summary: "One or two sentences on what Ombaka discussed.",
+  youtubeId: "FBMFQPKRc7k", // YouTube items only — see below
+}
+```
+
+For a YouTube item, set `youtubeId` to the `v=` value in the URL. That's all
+that's needed: `<YouTubeEmbed>` derives the thumbnail and plays the video
+inline. It uses a click-to-load facade — nothing from YouTube is requested
+until the visitor presses play — so the page stays fast and no third-party
+cookie is set on a passive page view.
+
+For a podcast or article, leave `youtubeId` off and optionally set `image` to
+a path under `public/`. Without an image the card falls back to a
+typographic plate, so a missing thumbnail never breaks the grid.
+
+Entries are grouped on the page by `kind` (Television & Video, Podcasts,
+Writing & Press), and a group with no entries isn't rendered at all.
 
 ### Social proof
 
@@ -135,11 +173,18 @@ the lead form. This keeps invite links out of scrapers'/rivals' reach and
 guarantees every WhatsApp joiner is also a captured lead.
 
 **Where lead submissions go:** `src/lib/leads.ts` posts JSON to
-`VITE_LEADS_ENDPOINT` (see `.env.example`) — wire this to Formspree, a
-Google Apps Script bound to a Sheet, or the campaign's own backend/CRM. If
-the endpoint is unset or the request fails, the lead is queued in
-`localStorage` (`ombaka_lead_queue`) instead of being lost, and the visitor
-still sees success and the WhatsApp reveal.
+`VITE_LEADS_ENDPOINT` (see `.env.example`) — wire this to the Apps Script
+collector below, Formspree, or the campaign's own backend/CRM. If the
+endpoint is unset or the request fails, the lead is queued in `localStorage`
+(`ombaka_lead_queue`) instead of being lost, and the visitor still sees
+success and the WhatsApp reveal.
+
+**Retry queue:** queued submissions are not stranded. `flushQueuedSubmissions()`
+(`src/lib/queue.ts`) runs on every app load and re-posts anything still
+parked, so a submission made while the endpoint was misconfigured is
+delivered the next time that visitor opens the site. Every payload carries a
+unique `id`, and the collector skips ids it has already written, so a retry
+can't create a duplicate row.
 
 **UTM attribution:** `src/hooks/useUtm.ts` captures
 `utm_source/medium/campaign/content/term` from the URL on landing, persists
@@ -162,6 +207,85 @@ is never silently dropped.
 The same page also surfaces the official campaign contacts directly: phone
 (`tel:`), WhatsApp (`wa.me`), and email (`mailto:`) — sourced from
 `src/config/site.ts`, and also shown in the footer on every page.
+
+## Wiring up lead capture and campaign updates
+
+Until `VITE_LEADS_ENDPOINT` is set, **every signup is parked in the
+visitor's own browser and the campaign never sees it** — while the form
+still tells them "You're on the list." This is the first thing to set up
+before promoting the site anywhere.
+
+Two separate problems, in order: somewhere for the list to land, and
+something to send updates with. The site itself can never send anything —
+it is a static SPA on Vercel, with no server, no scheduler, and no mail
+capability. Broadcasts always go out from a separate tool.
+
+### 1. Collect: Google Sheet + Apps Script Web App
+
+Free, and the campaign owns the data outright. `scripts/leads-apps-script.gs`
+is the script to deploy — it is kept in the repo so the deployed code stays
+reviewable, but it is **not** bundled with the site.
+
+1. Create a Google Sheet (e.g. "Ombaka 2027 — Supporters"). The script
+   creates the `Leads` and `Messages` tabs itself on first submission.
+2. In that Sheet: **Extensions -> Apps Script**.
+3. Delete the placeholder `myFunction`, paste in the whole of
+   `scripts/leads-apps-script.gs`, and save.
+4. Adjust `NOTIFY_EMAIL` at the top if new Get Involved messages should go
+   somewhere other than `info@pewachange.ke` (set it to `""` for no email
+   alerts, sheet rows only).
+5. **Deploy -> New deployment -> Web app**, with:
+   - *Execute as:* **Me**
+   - *Who has access:* **Anyone**  ← required; "Anyone with Google account"
+     will reject submissions from the public site.
+6. Authorise when prompted (the "unverified app" warning is expected for
+   your own script — *Advanced -> Go to ... (unsafe)*).
+7. Copy the deployment URL. It ends in `/exec`.
+8. Set both `VITE_LEADS_ENDPOINT` and `VITE_CONTACT_ENDPOINT` to that same
+   URL — in `.env.local` for dev, and in Vercel **Project Settings ->
+   Environment Variables** for production.
+9. **Redeploy on Vercel.** These are Vite build-time variables, so an
+   existing deployment will not pick them up until it rebuilds.
+10. Submit the form on the live site and confirm a row appears.
+
+Two things worth knowing about this setup:
+
+- Requests to `script.google.com` are sent as `text/plain` rather than
+  `application/json` (see `contentTypeFor` in `src/lib/submit.ts`). Apps
+  Script Web Apps don't answer the CORS preflight that a JSON POST triggers,
+  so a JSON content type fails in the browser before it is ever delivered.
+  The body is still JSON. Any non-Apps-Script endpoint gets normal JSON, so
+  switching to Formspree or a real backend needs no code change.
+- **Editing the script later requires Deploy -> Manage deployments -> edit
+  -> New version.** Saving alone does not update the live `/exec` URL.
+
+Phone numbers are normalised to `+2547XXXXXXXX` on the way in, so the list
+can be handed to a bulk SMS provider without further cleaning.
+
+### 2. Send: WhatsApp Communities and SMS
+
+The form requires **phone** and treats email as optional, so this is a phone
+list. Email tooling (Mailchimp and friends) would reach only the minority
+who filled that field in.
+
+- **WhatsApp Communities, per ward** — the primary channel, and the one the
+  site is already built around. The capture-then-reveal flow drops every
+  signup into their ward's Community, and a Community broadcast is the send.
+  Needs no new infrastructure, but the five links in `src/data/wards.ts` are
+  still `null`, so this isn't live yet.
+- **Bulk SMS** for reach beyond WhatsApp, via a Kenyan provider (Africa's
+  Talking or similar) with a registered sender ID. The `Ward` and `utm_*`
+  columns in the Sheet are what make targeted sends possible — a
+  Kawangware-specific message to Kawangware only.
+
+### 3. Unsubscribe (outstanding)
+
+The lead form promises "Unsubscribe anytime" (`LeadCaptureForm.tsx`) and
+there is currently **no mechanism behind that promise.** Under the Data
+Protection Act 2019 it needs to be real. The `Leads` sheet has an
+`Unsubscribed` column ready for it; the minimum workable version is
+honouring "Reply STOP" on the SMS side and marking that column, and
+filtering on it before every send.
 
 ## SEO, sharing, and analytics
 
@@ -203,9 +327,10 @@ filenames/paths so no code needs to change — just overwrite the file in
 - `src/config/site.ts` — confirm social handles are live before adding them
   to `social` (all currently blank, so the footer simply omits those
   icons).
-- `VITE_LEADS_ENDPOINT` / `VITE_CONTACT_ENDPOINT` — point these at real
-  endpoints before relying on form submissions reaching the team (see
-  `.env.example`).
+- `VITE_LEADS_ENDPOINT` / `VITE_CONTACT_ENDPOINT` — **not yet set.** Until
+  they are, signups never reach the campaign (see "Wiring up lead capture
+  and campaign updates" above). Highest priority.
+- An unsubscribe mechanism, to back the promise the lead form already makes.
 
 ## Running locally
 

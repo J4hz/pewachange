@@ -1,6 +1,7 @@
 {
   "about": true,
   "getInvolved": true,
+  "appearances": true,
   "plan": false,
   "stats": false,
   "news": false

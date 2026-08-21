@@ -1,35 +1,28 @@
 import { leadsEndpoint } from "@/config/site";
+import { postSubmission, submissionId } from "@/lib/submit";
+import { queueSubmission, LEAD_QUEUE_KEY } from "@/lib/queue";
 import type { LeadFormValues } from "@/lib/validation";
 import type { UtmParams } from "@/hooks/useUtm";
 
-const QUEUE_KEY = "ombaka_lead_queue";
-
 export interface LeadPayload extends LeadFormValues {
+  /** De-duplication key, so a queued re-send can't create a second row. */
+  id: string;
+  /** Lets one endpoint receive both forms and route them to the right sheet. */
+  form: "lead";
   utm: UtmParams;
   submittedAt: string;
   page: string;
 }
 
-function queueLocally(payload: LeadPayload) {
-  try {
-    const existing: LeadPayload[] = JSON.parse(
-      localStorage.getItem(QUEUE_KEY) ?? "[]"
-    );
-    existing.push(payload);
-    localStorage.setItem(QUEUE_KEY, JSON.stringify(existing));
-  } catch {
-    // localStorage unavailable — nothing more we can do client-side.
-  }
-}
-
 /**
- * Submits a lead to VITE_LEADS_ENDPOINT (a Formspree-style POST handler, or
- * the campaign's own backend/Google Sheet/CRM webhook — see .env.example).
+ * Submits a lead to VITE_LEADS_ENDPOINT (the Google Apps Script Web App
+ * described in the README, a Formspree endpoint, or the campaign's own
+ * backend/CRM webhook — see .env.example).
  *
  * Never blocks the "success" UX on network failure: if the endpoint isn't
- * configured yet or the request fails, the lead is queued in localStorage
- * (key: "ombaka_lead_queue") so it isn't lost, and we still report success
- * so the visitor proceeds to the WhatsApp reveal step.
+ * configured yet or the request fails, the lead is queued (see lib/queue.ts)
+ * and re-sent on a later visit, and we still report success so the visitor
+ * proceeds to the WhatsApp reveal step.
  */
 export async function submitLead(
   values: LeadFormValues,
@@ -37,26 +30,23 @@ export async function submitLead(
 ): Promise<{ ok: boolean; queued: boolean }> {
   const payload: LeadPayload = {
     ...values,
+    id: submissionId(),
+    form: "lead",
     utm,
     submittedAt: new Date().toISOString(),
     page: window.location.pathname,
   };
 
   if (!leadsEndpoint) {
-    queueLocally(payload);
+    queueSubmission(LEAD_QUEUE_KEY, payload);
     return { ok: true, queued: true };
   }
 
   try {
-    const res = await fetch(leadsEndpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error(`Leads endpoint responded ${res.status}`);
+    await postSubmission(leadsEndpoint, payload);
     return { ok: true, queued: false };
   } catch {
-    queueLocally(payload);
+    queueSubmission(LEAD_QUEUE_KEY, payload);
     return { ok: true, queued: true };
   }
 }

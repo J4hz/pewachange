@@ -11,6 +11,7 @@ import raw from "./features.json";
 export const features = raw as {
   about: boolean;
   getInvolved: boolean;
+  appearances: boolean;
   plan: boolean;
   stats: boolean;
   news: boolean;

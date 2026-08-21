@@ -17,6 +17,7 @@ const alwaysOn = ["/"];
 const flagged = [
   ["about", "/about"],
   ["getInvolved", "/get-involved"],
+  ["appearances", "/appearances"],
   ["plan", "/plan"],
   ["stats", "/stats"],
   ["news", "/news"],
