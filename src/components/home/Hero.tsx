@@ -98,7 +98,7 @@ export function Hero() {
             <img
               src="/hero.jpg"
               alt={`${candidate.fullName}, candidate for Dagoretti North Member of Parliament`}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-top"
               width={640}
               height={800}
               {...{ fetchpriority: "high" }}

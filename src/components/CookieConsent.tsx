@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import { loadAnalyticsIfConsented } from "@/lib/analytics";
+import { gaId, metaPixelId } from "@/config/site";
 
 const STORAGE_KEY = "ombaka_consent";
 
 /**
  * Privacy-first consent banner. Defaults to the most privacy-preserving
  * option: nothing is tracked until the visitor explicitly clicks Accept.
- * Declining (or ignoring the banner) means analytics never load.
+ * Declining (or ignoring the banner) means analytics never load. With no
+ * VITE_GA_ID or VITE_META_PIXEL_ID configured there is nothing to consent to,
+ * so the banner stays hidden rather than asking about trackers that don't
+ * exist.
  */
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (!gaId && !metaPixelId) return;
     const existing = localStorage.getItem(STORAGE_KEY);
     if (existing === "granted") {
       loadAnalyticsIfConsented();

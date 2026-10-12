@@ -125,6 +125,14 @@ export function Footer() {
             {candidate.shortName} as {candidate.office}. Paid for by the
             Ombaka 2027 campaign.
           </p>
+          <p className="mt-2 flex gap-4">
+            <Link to="/privacy" className="transition hover:text-cream">
+              Privacy
+            </Link>
+            <Link to="/unsubscribe" className="transition hover:text-cream">
+              Unsubscribe
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

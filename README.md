@@ -1,6 +1,6 @@
 # Ombaka 2027 — Dagoretti North MP Campaign Site
 
-The official campaign site for Vincent Ombaka, candidate for Member of
+The official campaign site for Ochieng (Pewa Change) Ombaka, candidate for Member of
 Parliament, Dagoretti North Constituency (Nairobi County), 2027 — the
 #PewaChange accountability campaign. The site's job is to turn visitors into
 captured leads (name/phone/email) and mobilized WhatsApp supporters, ward by
@@ -271,21 +271,26 @@ who filled that field in.
 - **WhatsApp Communities, per ward** — the primary channel, and the one the
   site is already built around. The capture-then-reveal flow drops every
   signup into their ward's Community, and a Community broadcast is the send.
-  Needs no new infrastructure, but the five links in `src/data/wards.ts` are
-  still `null`, so this isn't live yet.
+  Needs no new infrastructure; the five links live in `src/data/wards.ts`.
 - **Bulk SMS** for reach beyond WhatsApp, via a Kenyan provider (Africa's
   Talking or similar) with a registered sender ID. The `Ward` and `utm_*`
   columns in the Sheet are what make targeted sends possible — a
   Kawangware-specific message to Kawangware only.
 
-### 3. Unsubscribe (outstanding)
+### 3. Unsubscribe
 
-The lead form promises "Unsubscribe anytime" (`LeadCaptureForm.tsx`) and
-there is currently **no mechanism behind that promise.** Under the Data
-Protection Act 2019 it needs to be real. The `Leads` sheet has an
-`Unsubscribed` column ready for it; the minimum workable version is
-honouring "Reply STOP" on the SMS side and marking that column, and
-filtering on it before every send.
+The lead form promises "Unsubscribe anytime" and links to `/unsubscribe`
+(`src/pages/Unsubscribe.tsx`). That page posts `{ form: "unsubscribe", phone }`
+to the same Apps Script, which marks every `Leads` row with that number
+`Unsubscribed = yes`. Three ways in, all ending in that column:
+
+- the `/unsubscribe` page (automatic);
+- replying **STOP** to an SMS (mark the column by hand, or via your SMS
+  provider's opt-out list);
+- emailing info@pewachange.ke (mark the column by hand).
+
+**Filter out `Unsubscribed = yes` before every SMS or email send.** Leaving a
+ward WhatsApp group is handled by WhatsApp itself.
 
 ## SEO, sharing, and analytics
 
@@ -330,7 +335,6 @@ filenames/paths so no code needs to change — just overwrite the file in
 - `VITE_LEADS_ENDPOINT` / `VITE_CONTACT_ENDPOINT` — **not yet set.** Until
   they are, signups never reach the campaign (see "Wiring up lead capture
   and campaign updates" above). Highest priority.
-- An unsubscribe mechanism, to back the promise the lead form already makes.
 
 ## Running locally
 

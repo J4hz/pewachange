@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.pewachange.ke/sitemap.xml
+Sitemap: https://pewachange.africa/sitemap.xml

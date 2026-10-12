@@ -78,3 +78,15 @@ export const contactSchema = z.object({
 });
 
 export type ContactFormValues = z.infer<typeof contactSchema>;
+
+export const unsubscribeSchema = z.object({
+  phone: z
+    .string()
+    .trim()
+    .regex(
+      KENYAN_PHONE_REGEX,
+      "Enter the number you signed up with, e.g. 07XX XXX XXX"
+    ),
+});
+
+export type UnsubscribeFormValues = z.infer<typeof unsubscribeSchema>;

@@ -5,7 +5,7 @@
  */
 
 export const candidate = {
-  fullName: "Vincent Ombaka", // used in the hero/bio
+  fullName: "Ochieng (Pewa Change) Ombaka", // used in the hero/bio
   shortName: "Ombaka", // used in body copy
   brandName: "Ombaka", // used in the logo/nav/headlines
   office: "Member of Parliament, Dagoretti North Constituency",
@@ -27,7 +27,10 @@ export const taglines = {
   supportingEnglish: "Your taxes. Your development. Transparency.",
 } as const;
 
-export const siteUrl = "https://www.pewachange.ke";
+// Launch domain. Moving to pewachange.ke later? Change this, SITE_URL in
+// scripts/generate-sitemap.mjs, and the share-tag URLs in index.html, then
+// rebuild.
+export const siteUrl = "https://pewachange.africa";
 
 /**
  * Social handles are not yet confirmed live — leave empty and the footer

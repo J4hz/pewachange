@@ -148,7 +148,7 @@ export default function Appearances() {
     <>
       <SEO
         title="Appearances"
-        description="Vincent Ombaka in the media: television interviews, podcasts, and writing on planning, accountability, and public money in Dagoretti North."
+        description="Ochieng (Pewa Change) Ombaka in the media: television interviews, podcasts, and writing on planning, accountability, and public money in Dagoretti North."
         path="/appearances"
       />
 
@@ -161,7 +161,7 @@ export default function Appearances() {
             Appearances
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-ink/70">
-            Interviews, podcasts, and writing featuring Vincent Ombaka &mdash;
+            Interviews, podcasts, and writing featuring Ochieng (Pewa Change) Ombaka &mdash;
             making the case for accountable planning, honest budgets, and value
             for every shilling residents have already paid.
           </p>

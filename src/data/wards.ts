@@ -36,7 +36,7 @@ export const wards: Ward[] = [
     oneLiner:
       "You pay some of the highest rates and levies in the constituency. You deserve to see exactly where that money goes.",
     swahiliTag: "Uwazi kwa kila senti.",
-    whatsappLink: null,
+    whatsappLink: "https://chat.whatsapp.com/CjjJc6U1wJeB9940hQ9crA",
   },
   {
     slug: "gatina",
@@ -44,7 +44,7 @@ export const wards: Ward[] = [
     oneLiner:
       "Roads, drainage and water have waited too long. Gatina needs a representative who tracks delivery, not just promises.",
     swahiliTag: "Maendeleo ya kweli, siyo ahadi.",
-    whatsappLink: null,
+    whatsappLink: "https://chat.whatsapp.com/JMMBI6qM3PJBSDr4TxK4bJ",
   },
   {
     slug: "kabiro",
@@ -52,7 +52,7 @@ export const wards: Ward[] = [
     oneLiner:
       "Jobs, dignified housing, and services that actually reach Kabiro, funded by taxes you already pay.",
     swahiliTag: "Kazi na heshima kwa kila mkazi.",
-    whatsappLink: null,
+    whatsappLink: "https://chat.whatsapp.com/IEwGvHfaKfU6EWMWcEhLhm",
   },
   {
     slug: "kawangware",
@@ -60,7 +60,7 @@ export const wards: Ward[] = [
     oneLiner:
       "Kawangware carries the weight of this constituency's workforce. It's time public money worked as hard as you do.",
     swahiliTag: "Ushuru wako ufanye kazi kwako.",
-    whatsappLink: null,
+    whatsappLink: "https://chat.whatsapp.com/FZ4x0o1Rq2E4s7C7ldlXNT",
   },
   {
     slug: "kileleshwa",
@@ -68,7 +68,7 @@ export const wards: Ward[] = [
     oneLiner:
       "Kileleshwa residents fund a lot of this county's budget. Accountable, transparent representation is the return you're owed.",
     swahiliTag: "Ushuru wako, uwazi wako.",
-    whatsappLink: null,
+    whatsappLink: "https://chat.whatsapp.com/Ix53x4rTndc50OturiuFqF",
   },
 ];
 

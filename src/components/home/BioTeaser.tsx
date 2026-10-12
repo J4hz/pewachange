@@ -15,8 +15,8 @@ export function BioTeaser() {
       >
         <div className="h-28 w-28 shrink-0 overflow-hidden border-2 border-ink bg-berry/10 sm:h-32 sm:w-32">
           <img
-            src="/hero.jpg"
-            alt="Vincent Ombaka, aspiring MP for Dagoretti North"
+            src="/portrait-square.jpg"
+            alt="Ochieng (Pewa Change) Ombaka, aspiring MP for Dagoretti North"
             className="h-full w-full object-cover"
             width={256}
             height={256}

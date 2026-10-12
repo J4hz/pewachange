@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { ScrollToHash } from "@/components/ScrollToHash";
 import { features } from "@/config/features";
@@ -11,6 +11,9 @@ import About from "@/pages/About";
 import GetInvolved from "@/pages/GetInvolved";
 import Appearances from "@/pages/Appearances";
 import News from "@/pages/News";
+import Unsubscribe from "@/pages/Unsubscribe";
+import Privacy from "@/pages/Privacy";
+import NotFound from "@/pages/NotFound";
 
 export default function App() {
   // Re-send any form submission parked by an earlier visit (endpoint not yet
@@ -37,8 +40,10 @@ export default function App() {
             <Route path="/get-involved" element={<GetInvolved />} />
           )}
           {features.news && <Route path="/news" element={<News />} />}
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/unsubscribe" element={<Unsubscribe />} />
 
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </>

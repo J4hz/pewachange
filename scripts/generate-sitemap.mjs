@@ -1,4 +1,4 @@
-// Regenerates public/sitemap.xml from the same feature flags the app uses,
+// Regenerates public/sitemap.xml (and robots.txt, which points at it) from the same feature flags the app uses,
 // so a hidden page never leaks into the sitemap. Runs automatically before
 // every build (see package.json "prebuild"). Flip a flag in
 // src/config/features.json and rebuild — no other change needed.
@@ -11,9 +11,9 @@ const featuresPath = path.resolve(__dirname, "../src/config/features.json");
 const features = JSON.parse(readFileSync(featuresPath, "utf-8"));
 
 // Keep in sync with siteUrl in src/config/site.ts.
-const SITE_URL = "https://www.pewachange.ke";
+const SITE_URL = "https://pewachange.africa";
 
-const alwaysOn = ["/"];
+const alwaysOn = ["/", "/privacy"];
 const flagged = [
   ["about", "/about"],
   ["getInvolved", "/get-involved"],
@@ -37,4 +37,12 @@ const urlEntries = routes
 const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlEntries}\n</urlset>\n`;
 
 writeFileSync(path.resolve(__dirname, "../public/sitemap.xml"), xml);
+writeFileSync(
+  path.resolve(__dirname, "../public/robots.txt"),
+  `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`
+);
 console.log(`sitemap.xml written with ${routes.length} route(s): ${routes.join(", ")}`);

@@ -10,7 +10,7 @@ export default function Home() {
     <>
       <SEO
         title="Home"
-        description="Vincent Ombaka for Dagoretti North MP, 2027. You've paid. You deserve more. Join the accountability campaign for Kilimani, Gatina, Kabiro, Kawangware and Kileleshwa."
+        description="Ochieng (Pewa Change) Ombaka for Dagoretti North MP, 2027. You've paid. You deserve more. Join the accountability campaign for Kilimani, Gatina, Kabiro, Kawangware and Kileleshwa."
         path="/"
       />
       <Hero />

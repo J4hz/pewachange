@@ -77,7 +77,9 @@ function doPost(e) {
     var isMessage =
       payload.form === "contact" || (!payload.form && payload.message);
 
-    if (isMessage) {
+    if (payload.form === "unsubscribe") {
+      markUnsubscribed(payload.phone);
+    } else if (isMessage) {
       appendMessage(payload);
     } else {
       appendLead(payload);
@@ -122,6 +124,30 @@ function appendLead(payload) {
     "", // Unsubscribed — set to "yes" by hand or by the STOP handler.
     payload.id || "",
   ]);
+}
+
+/**
+ * Self-service opt-out: marks every Leads row with this phone number as
+ * Unsubscribed. Always reports success, whether or not the number was on the
+ * list, so the endpoint can't be used to check who has signed up. Filter on
+ * the Unsubscribed column before every SMS or email send.
+ */
+function markUnsubscribed(phone) {
+  var target = normalisePhone(phone).replace("'", "");
+  if (target === "+254") return;
+
+  var sheet = getSheet(LEAD_SHEET, LEAD_HEADERS);
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 2) return;
+
+  var phoneColumn = LEAD_HEADERS.indexOf("Phone") + 1;
+  var unsubColumn = LEAD_HEADERS.indexOf("Unsubscribed") + 1;
+  var phones = sheet.getRange(2, phoneColumn, lastRow - 1, 1).getValues();
+  for (var i = 0; i < phones.length; i++) {
+    if (String(phones[i][0]).replace("'", "") === target) {
+      sheet.getRange(i + 2, unsubColumn).setValue("yes");
+    }
+  }
 }
 
 function appendMessage(payload) {

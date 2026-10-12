@@ -8,7 +8,7 @@ export default function About() {
     <>
       <SEO
         title="Meet Ombaka"
-        description="Vincent Ombaka: African Christian apologist, entrepreneur, and policy expert. Chairperson of the Kileleshwa Ward Neighbourhood Association, standing for Member of Parliament, Dagoretti North."
+        description="Ochieng (Pewa Change) Ombaka: African Christian apologist, entrepreneur, and policy expert. Chairperson of the Kileleshwa Ward Neighbourhood Association, standing for Member of Parliament, Dagoretti North."
         path="/about"
       />
 
@@ -17,8 +17,8 @@ export default function About() {
           <div className="mx-auto aspect-[4/5] w-full max-w-[280px] border-2 border-ink bg-berry/10 shadow-stamp">
             <img
               src="/hero.jpg"
-              alt="Vincent Ombaka, aspiring MP for Dagoretti North"
-              className="h-full w-full object-cover"
+              alt="Ochieng (Pewa Change) Ombaka, aspiring MP for Dagoretti North"
+              className="h-full w-full object-cover object-top"
               width={640}
               height={800}
             />

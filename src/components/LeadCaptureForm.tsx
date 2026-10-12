@@ -1,4 +1,5 @@
 import { useId, useState } from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, MessageCircle, Loader2 } from "lucide-react";
@@ -208,8 +209,15 @@ export function LeadCaptureForm({
       <p
         className={`text-xs ${isOnDark ? "text-white/70" : "text-ink/60"}`}
       >
-        We'll text and email you campaign updates. No spam. Unsubscribe
-        anytime.
+        We'll text and email you campaign updates. No spam. Reply STOP or{" "}
+        <Link to="/unsubscribe" className="underline">
+          unsubscribe here
+        </Link>{" "}
+        anytime. See our{" "}
+        <Link to="/privacy" className="underline">
+          privacy notice
+        </Link>
+        .
       </p>
     </form>
   );
