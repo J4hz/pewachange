@@ -50,8 +50,8 @@ export function YouTubeEmbed({ videoId, title, className = "" }: YouTubeEmbedPro
             loading="lazy"
             className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
           />
-          <span className="absolute inset-0 bg-ink/25 transition group-hover:bg-ink/10" />
-          <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center border-2 border-ink bg-berry text-white shadow-stamp transition-all duration-150 group-hover:-translate-x-[calc(50%+2px)] group-hover:-translate-y-[calc(50%+2px)] group-hover:shadow-[6px_6px_0_0_rgba(17,17,17,1)]">
+          <span className="absolute inset-0 bg-ink/20 transition group-hover:bg-ink/5" />
+          <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-berry text-paper shadow-lift transition-transform duration-200 group-hover:scale-105">
             <Play className="h-7 w-7 translate-x-0.5 fill-current" />
           </span>
         </button>

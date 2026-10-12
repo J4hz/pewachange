@@ -9,18 +9,16 @@ export default function NotFound() {
         <meta name="robots" content="noindex" />
       </Helmet>
 
-      <section className="bg-cream-soft py-20 sm:py-28">
-        <div className="mx-auto max-w-xl px-4 text-center sm:px-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.15em] text-berry">
-            404
-          </p>
-          <h1 className="mt-2 font-serif text-4xl font-semibold tracking-tight text-ink">
+      <section className="bg-paper py-24 sm:py-32">
+        <div className="shell max-w-xl text-center">
+          <img src="/logo-mark.png" alt="" width={96} height={96} className="mx-auto h-24 w-24" />
+          <h1 className="heading mt-6 text-4xl sm:text-5xl">
             We couldn&rsquo;t find that page
           </h1>
-          <p className="mt-4 text-ink/80">
+          <p className="mt-4 text-lg text-ink/75">
             The link may be old or mistyped. Ukurasa huu haupatikani.
           </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
             <Link to="/" className="btn-primary">
               Go to the homepage
             </Link>

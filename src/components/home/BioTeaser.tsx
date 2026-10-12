@@ -1,45 +1,32 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { candidate } from "@/config/site";
 
 export function BioTeaser() {
   return (
-    <section className="bg-paper py-16 sm:py-20">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.4 }}
-        className="mx-auto flex max-w-6xl flex-col items-start gap-8 border-2 border-ink bg-cream-soft p-6 shadow-stamp-sm sm:flex-row sm:items-center sm:p-8"
-      >
-        <div className="h-28 w-28 shrink-0 overflow-hidden border-2 border-ink bg-berry/10 sm:h-32 sm:w-32">
+    <section className="bg-paper pb-20 sm:pb-28">
+      <div className="shell">
+        <div className="grid items-center gap-8 rounded-sheet bg-cream p-6 sm:grid-cols-[auto_1fr] sm:gap-10 sm:p-10">
           <img
             src="/portrait-square.jpg"
-            alt="Ochieng (Pewa Change) Ombaka, aspiring MP for Dagoretti North"
-            className="h-full w-full object-cover"
-            width={256}
-            height={256}
+            alt={candidate.fullName}
+            className="h-32 w-32 rounded-full bg-blush object-cover sm:h-40 sm:w-40"
+            width={160}
+            height={160}
+            loading="lazy"
           />
+          <div>
+            <h2 className="heading text-3xl">Already doing the work</h2>
+            <p className="mt-3 max-w-2xl text-lg text-ink/75">
+              Entrepreneur, policy expert, and chairperson of the Kileleshwa
+              Ward Neighbourhood Association (KIWANA). {candidate.shortName} was
+              showing up for residents long before asking for their vote.
+            </p>
+            <Link to="/about" className="link mt-5 inline-block">
+              Read Ombaka&rsquo;s story
+            </Link>
+          </div>
         </div>
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-berry">
-            Meet {candidate.brandName}
-          </p>
-          <p className="mt-2 max-w-2xl text-lg text-ink/80">
-            An entrepreneur, policy expert, and chairperson of the
-            Kileleshwa Ward Neighbourhood Association (KIWANA), already
-            doing the work of representation before asking for the vote.
-          </p>
-          <Link
-            to="/about"
-            className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-berry hover:underline"
-          >
-            Meet Ombaka
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-        </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -7,10 +7,11 @@ export interface NavLink {
 
 export const navLinks: NavLink[] = [
   { label: "Home", to: "/" },
-  ...(features.plan ? [{ label: "The Plan", to: "/plan" }] : []),
-  ...(features.stats ? [{ label: "The Record", to: "/stats" }] : []),
+  ...(features.plan ? [{ label: "The plan", to: "/plan" }] : []),
+  ...(features.stats ? [{ label: "The record", to: "/stats" }] : []),
   ...(features.about ? [{ label: "Meet Ombaka", to: "/about" }] : []),
   ...(features.appearances ? [{ label: "Appearances", to: "/appearances" }] : []),
-  ...(features.getInvolved ? [{ label: "Get Involved", to: "/get-involved" }] : []),
+  ...(features.getInvolved ? [{ label: "Get involved", to: "/get-involved" }] : []),
   ...(features.news ? [{ label: "News", to: "/news" }] : []),
+  ...(features.donate ? [{ label: "Donate", to: "/donate" }] : []),
 ];

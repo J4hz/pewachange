@@ -3,24 +3,28 @@ import { taglines } from "@/config/site";
 
 export function FinalCta() {
   return (
-    <section id="join" className="bg-berry py-20 sm:py-24">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 md:grid-cols-2 md:items-center">
+    <section id="join" className="scroll-mt-16 bg-berry py-20 text-paper sm:py-28">
+      <div className="shell grid gap-12 lg:grid-cols-[1fr_27rem] lg:items-center lg:gap-16">
         <div>
-          <p className="font-serif text-lg font-semibold italic text-white/90">
-            {taglines.official}.
-          </p>
-          <h2 className="mt-2 font-serif text-4xl font-semibold leading-tight text-white sm:text-5xl">
-            {taglines.primary}
+          <h2 className="display text-[clamp(2.75rem,6vw,4.75rem)]">
+            {taglines.primary.split(/(?<=\.)\s+/).map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
           </h2>
-          <p className="mt-4 text-lg text-white/85">{taglines.supportingEnglish}</p>
-          <p className="mt-4 inline-block border-2 border-white/40 px-3 py-1 text-sm font-semibold tracking-wide text-white">
-            {taglines.hashtag}
+          <p className="mt-7 font-serif text-2xl italic text-blush">
+            {taglines.supportingSwahili}
+          </p>
+          <p className="mt-1 text-lg text-paper/80">{taglines.supportingEnglish}</p>
+          <p className="mt-8 text-paper/70">
+            Add your name and ask for your change.{" "}
+            <span className="font-semibold text-paper">{taglines.hashtag}</span>
           </p>
         </div>
-        <LeadCaptureForm
-          variant="on-dark"
-          className="border-2 border-white/30 bg-white/5 p-6"
-        />
+        <div className="rounded-sheet bg-ink/25 p-6 sm:p-8">
+          <LeadCaptureForm variant="on-dark" />
+        </div>
       </div>
     </section>
   );

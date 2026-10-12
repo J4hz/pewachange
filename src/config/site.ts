@@ -18,10 +18,10 @@ export const taglines = {
   // The official campaign tagline (Swahili) and hashtag — the campaign's
   // core message block, featured site-wide. See README brand notes.
   official: "Ushuru Imezidi, Maendeleo ni Kidogo",
-  officialEnglish: "Taxes have gone up. Development is little.",
+  officialEnglish: "Taxes are too high, and development too little.",
   hashtag: "#PewaChange",
   // English positioning line, used as the emotional headline hook.
-  primary: "You've paid. You deserve more.",
+  primary: "You’ve paid. You deserve more.",
   primarySwahili: "Umelipa. Unastahili zaidi.",
   supportingSwahili: "Ushuru wako. Maendeleo yako. Uwazi.",
   supportingEnglish: "Your taxes. Your development. Transparency.",
@@ -53,6 +53,12 @@ export const contact = {
   // groups in data/wards.ts) — for supporters who aren't sure which ward
   // group to join, or want the umbrella community.
   whatsappCommunity: "https://chat.whatsapp.com/F0aPvObApZGGy7d5T2lFD2",
+} as const;
+
+/** M-Pesa Paybill for campaign contributions, shown on /donate. */
+export const donation = {
+  paybill: "542542",
+  account: "15401540",
 } as const;
 
 /** Where lead-capture form submissions are sent. See .env.example. */

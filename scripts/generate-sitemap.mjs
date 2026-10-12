@@ -21,6 +21,7 @@ const flagged = [
   ["plan", "/plan"],
   ["stats", "/stats"],
   ["news", "/news"],
+  ["donate", "/donate"],
 ];
 
 const routes = [

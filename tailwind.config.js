@@ -4,21 +4,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Palette extracted from the live site (pewachange.ke) — preserved as instructed.
-        // See README.md "Brand palette" section for provenance of each token.
+        // Palette sampled from the Pewa Change logo and the "Support the
+        // movement" poster: one burgundy, warm creams, and a peach accent.
+        // See README.md "Brand palette".
         berry: {
-          DEFAULT: "#B43052", // primary brand accent — used site-wide for headlines & the tax/development contrast block
-          dark: "#7A2038", // hover/pressed shade derived from berry for contrast
+          DEFAULT: "#781627", // primary brand accent (burgundy, matches the Pewa Change logo) — used site-wide for headlines & the tax/development contrast block
+          dark: "#56101C", // hover/pressed shade derived from berry for contrast
           light: "#D66C88",
         },
+        blush: "#E9C4AF", // peach circle behind the hand in the logo
         cream: {
-          DEFAULT: "#E8CEB0", // secondary warm surface, paired with berry on the source site
-          soft: "#F3E6D4",
+          DEFAULT: "#E8D4C4", // poster background
+          soft: "#E8D4C4", // alternating section background (poster)
         },
-        ink: "#111111", // body/heading text (source site --wp--preset--color--contrast)
+        ink: "#2B0C12", // text, borders, stamp shadows, footer: near-black burgundy
         paper: {
-          DEFAULT: "#FFFFFF", // base background (source site --wp--preset--color--base)
-          soft: "#FBFAF3", // off-white surface (source site accent-5)
+          DEFAULT: "#F2DDC8", // base background (logo background cream)
+          soft: "#F7E8DA", // lighter cream surface
         },
         campaign: {
           black: "#000000", // dark surfaces (footer) — no longer used for buttons
@@ -33,6 +35,9 @@ export default {
         },
       },
       fontFamily: {
+        // Fraunces carries the brand voice: set heavy, italic and fully
+        // "soft" (see .display in index.css) it echoes the rounded italic of
+        // the Pewa Change wordmark. Schibsted Grotesk does all the reading.
         serif: [
           "Fraunces",
           "ui-serif",
@@ -40,7 +45,7 @@ export default {
           "serif",
         ],
         sans: [
-          "Manrope",
+          "Schibsted Grotesk",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",
@@ -57,15 +62,17 @@ export default {
         ],
       },
       borderRadius: {
-        none: "0px",
-        DEFAULT: "0px",
+        // Two radii, by role: "sheet" for photos and form panels; pills
+        // (rounded-full) for anything you press, taken from the poster's
+        // PAYBILL labels. Everything else stays square.
+        sheet: "1.75rem",
       },
       boxShadow: {
-        // Hard, offset "letterpress/stamp" shadow — depth without softness,
-        // to match the flat receipt/ledger aesthetic (no blurred elevation).
-        stamp: "4px 4px 0 0 rgba(17,17,17,1)",
-        "stamp-sm": "3px 3px 0 0 rgba(17,17,17,1)",
-        "stamp-berry": "4px 4px 0 0 rgba(180,48,82,1)",
+        // Kept for the hidden Stats/Plan pages, which still use them.
+        stamp: "4px 4px 0 0 rgba(43,12,18,1)",
+        "stamp-sm": "3px 3px 0 0 rgba(43,12,18,1)",
+        // A low, warm lift for floating sheets (modal, menus) only.
+        lift: "0 1px 2px rgba(43,12,18,0.08), 0 12px 32px -8px rgba(43,12,18,0.22)",
       },
       clipPath: {
         receipt: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",

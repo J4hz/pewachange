@@ -25,7 +25,7 @@ export function Seal({
 }: SealProps) {
   const pathId = useId();
   const isPending = variant === "pending";
-  const ringColor = isPending ? "#9C7A3C" : "#B43052";
+  const ringColor = isPending ? "#9C7A3C" : "#781627";
   const repeatedLabel = label.repeat(3);
 
   return (
@@ -68,7 +68,7 @@ export function Seal({
           fontSize="6.4"
           fontWeight={700}
           letterSpacing="0.3"
-          fill="#111111"
+          fill="#2B0C12"
           fillOpacity={0.6}
         >
           <textPath href={`#${pathId}`} startOffset="0%">

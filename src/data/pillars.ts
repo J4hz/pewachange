@@ -19,7 +19,7 @@ export interface Pillar {
 export const pillars: Pillar[] = [
   {
     id: "representation",
-    title: "Real Representation",
+    title: "Real representation",
     swahiliTag: "Sauti yako bungeni.",
     summary:
       "An MP who shows up in the ward, not just at election time: regular public forums, open office hours, and a direct line back to residents.",
@@ -28,7 +28,7 @@ export const pillars: Pillar[] = [
   },
   {
     id: "accountability",
-    title: "Every Shilling Accounted For",
+    title: "Every shilling accounted for",
     swahiliTag: "Kila senti, uwazi.",
     summary:
       "A public, plain-language tracker of CDF and local development funds: what was allocated, what was spent, and what residents can go and see for themselves.",
@@ -37,7 +37,7 @@ export const pillars: Pillar[] = [
   },
   {
     id: "jobs",
-    title: "Jobs & Dignity",
+    title: "Jobs and dignity",
     swahiliTag: "Kazi ni heshima.",
     summary:
       "Local procurement, skills programs, and support for the small businesses and informal workers who carry this constituency's economy.",

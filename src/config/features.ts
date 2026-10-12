@@ -15,6 +15,7 @@ export const features = raw as {
   plan: boolean;
   stats: boolean;
   news: boolean;
+  donate: boolean;
 };
 
 export type FeatureKey = keyof typeof features;

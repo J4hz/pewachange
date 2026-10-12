@@ -1,77 +1,54 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Youtube, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Youtube, Mail, Phone, MessageCircle } from "lucide-react";
 import { navLinks } from "@/config/nav";
 import { candidate, social, contact, taglines } from "@/config/site";
 import { LeadCaptureForm } from "@/components/LeadCaptureForm";
-import { Seal } from "@/components/Seal";
+
+const footerLink = "text-paper/75 transition-colors hover:text-paper";
 
 // lucide-react has no built-in X/TikTok glyphs we want to rely on; keep the
 // icon set to what's available and let the labelled text link carry the rest.
 export function Footer() {
+  const hasSocial = social.facebook || social.instagram || social.youtube || social.x;
+
   return (
-    <footer className="bg-ink text-white">
-      <div className="ledger-rule text-brass/40" aria-hidden="true" />
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <div className="grid gap-10 md:grid-cols-3">
+    <footer className="bg-ink text-paper">
+      <div className="shell py-16 sm:py-20">
+        <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr_1.2fr] lg:gap-12">
           <div>
-            <div className="flex items-center gap-3">
-              <Seal variant="decorative" size={44} />
-              <p className="font-serif text-2xl font-semibold">
-                {candidate.brandName} <span className="text-berry-light">2027</span>
-              </p>
-            </div>
-            <p className="mt-3 text-sm text-white/70">
-              {candidate.office}, {candidate.county}.
+            <Link to="/" className="inline-flex items-center gap-3">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-paper">
+                <img src="/logo-mark.png" alt="" width={44} height={44} className="h-11 w-11" />
+              </span>
+              <span className="display text-4xl">{candidate.brandName}</span>
+            </Link>
+            <p className="mt-5 max-w-xs text-paper/75">
+              {candidate.office}, {candidate.county}, {candidate.electionYear}.
             </p>
-            <p className="mt-4 font-serif text-base italic text-white/90">
+            <p className="mt-6 font-serif text-xl italic text-blush">
               {taglines.official}.
             </p>
-            <p className="mt-2 inline-block border border-white/30 px-2.5 py-1 text-sm font-semibold tracking-wide text-berry-light">
-              {taglines.hashtag}
-            </p>
-            {(social.facebook || social.instagram || social.youtube || social.x) && (
-              <div className="mt-4 flex gap-4">
+            <p className="mt-1 font-semibold">{taglines.hashtag}</p>
+
+            {hasSocial && (
+              <div className="mt-6 flex gap-5">
                 {social.facebook && (
-                  <a
-                    href={social.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Ombaka campaign on Facebook"
-                    className="text-white/80 transition hover:text-cream"
-                  >
+                  <a href={social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Ombaka campaign on Facebook" className={footerLink}>
                     <Facebook className="h-5 w-5" />
                   </a>
                 )}
                 {social.instagram && (
-                  <a
-                    href={social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Ombaka campaign on Instagram"
-                    className="text-white/80 transition hover:text-cream"
-                  >
+                  <a href={social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Ombaka campaign on Instagram" className={footerLink}>
                     <Instagram className="h-5 w-5" />
                   </a>
                 )}
                 {social.youtube && (
-                  <a
-                    href={social.youtube}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Ombaka campaign on YouTube"
-                    className="text-white/80 transition hover:text-cream"
-                  >
+                  <a href={social.youtube} target="_blank" rel="noopener noreferrer" aria-label="Ombaka campaign on YouTube" className={footerLink}>
                     <Youtube className="h-5 w-5" />
                   </a>
                 )}
                 {social.x && (
-                  <a
-                    href={social.x}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Ombaka campaign on X"
-                    className="text-sm font-bold text-white/80 transition hover:text-cream"
-                  >
+                  <a href={social.x} target="_blank" rel="noopener noreferrer" aria-label="Ombaka campaign on X" className={`text-sm font-bold ${footerLink}`}>
                     X
                   </a>
                 )}
@@ -79,57 +56,58 @@ export function Footer() {
             )}
           </div>
 
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
-              Campaign
-            </p>
-            <ul className="mt-3 space-y-2">
-              {navLinks.map((link) => (
-                <li key={link.to}>
-                  <Link
-                    to={link.to}
-                    className="text-sm text-white/80 transition hover:text-cream"
-                  >
-                    {link.label}
-                  </Link>
+          <div className="grid grid-cols-2 content-start gap-8 lg:grid-cols-1 lg:gap-10">
+            <nav aria-label="Footer">
+              <h2 className="font-semibold text-paper">Campaign</h2>
+              <ul className="mt-4 space-y-2.5">
+                {navLinks.map((link) => (
+                  <li key={link.to}>
+                    <Link to={link.to} className={footerLink}>
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <div>
+              <h2 className="font-semibold text-paper">Talk to us</h2>
+              <ul className="mt-4 space-y-2.5">
+                <li>
+                  <a href={`tel:${contact.phone}`} className={`inline-flex items-center gap-2.5 ${footerLink}`}>
+                    <Phone className="h-4 w-4" aria-hidden="true" /> {contact.phoneDisplay}
+                  </a>
                 </li>
-              ))}
-            </ul>
-            <div className="mt-4 space-y-2">
-              <a
-                href={`mailto:${contact.email}`}
-                className="flex items-center gap-2 text-sm text-white/80 transition hover:text-cream"
-              >
-                <Mail className="h-4 w-4" /> {contact.email}
-              </a>
-              <a
-                href={`tel:${contact.phone}`}
-                className="flex items-center gap-2 text-sm text-white/80 transition hover:text-cream"
-              >
-                <Phone className="h-4 w-4" /> {contact.phoneDisplay}
-              </a>
+                <li>
+                  <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" className={`inline-flex items-center gap-2.5 ${footerLink}`}>
+                    <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
+                  </a>
+                </li>
+                <li>
+                  <a href={`mailto:${contact.email}`} className={`inline-flex items-center gap-2.5 break-all ${footerLink}`}>
+                    <Mail className="h-4 w-4 shrink-0" aria-hidden="true" /> {contact.email}
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
 
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
-              Get campaign updates
-            </p>
-            <LeadCaptureForm variant="on-dark" className="mt-3" />
+            <h2 className="font-semibold text-paper">Get campaign updates</h2>
+            <LeadCaptureForm variant="on-dark" className="mt-5" />
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-6 font-mono text-xs text-white/50">
+        <div className="mt-16 flex flex-col gap-3 border-t border-paper/10 pt-6 text-sm text-paper/55 sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {new Date().getFullYear()} Campaign to elect{" "}
             {candidate.shortName} as {candidate.office}. Paid for by the
             Ombaka 2027 campaign.
           </p>
-          <p className="mt-2 flex gap-4">
-            <Link to="/privacy" className="transition hover:text-cream">
+          <p className="flex shrink-0 gap-5">
+            <Link to="/privacy" className="transition-colors hover:text-paper">
               Privacy
             </Link>
-            <Link to="/unsubscribe" className="transition hover:text-cream">
+            <Link to="/unsubscribe" className="transition-colors hover:text-paper">
               Unsubscribe
             </Link>
           </p>

@@ -4,5 +4,6 @@
   "appearances": true,
   "plan": false,
   "stats": false,
-  "news": false
+  "news": false,
+  "donate": true
 }

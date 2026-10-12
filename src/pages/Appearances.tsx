@@ -26,7 +26,7 @@ interface KindMeta {
 
 const KIND: Record<AppearanceKind, KindMeta> = {
   video: {
-    section: "Television & Video",
+    section: "Television and video",
     label: "Video",
     action: "Watch",
     icon: Tv,
@@ -38,7 +38,7 @@ const KIND: Record<AppearanceKind, KindMeta> = {
     icon: Mic,
   },
   article: {
-    section: "Writing & Press",
+    section: "Writing and press",
     label: "Article",
     action: "Read",
     icon: Newspaper,
@@ -59,9 +59,9 @@ function formatDate(iso: string) {
 /** Outlet, programme, and date — skipping the parts an entry doesn't have. */
 function Byline({ item, className = "" }: { item: Appearance; className?: string }) {
   return (
-    <p className={`font-mono text-xs uppercase tracking-wide ${className}`}>
-      {[item.outlet, item.programme].filter(Boolean).join(" · ")}
-      <span className="mx-2">|</span>
+    <p className={`text-[0.9375rem] ${className}`}>
+      {[item.outlet, item.programme].filter(Boolean).join(", ")}
+      <span aria-hidden="true">, </span>
       <time dateTime={item.date}>{formatDate(item.date)}</time>
     </p>
   );
@@ -84,7 +84,7 @@ function Media({ item }: { item: Appearance }) {
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block aspect-video w-full overflow-hidden bg-cream-soft"
+      className="group block aspect-video w-full overflow-hidden bg-cream"
       aria-label={`${KIND[item.kind].action}: ${item.title}`}
     >
       {item.image ? (
@@ -107,7 +107,7 @@ function KindTag({ kind }: { kind: AppearanceKind }) {
   const Icon = KIND[kind].icon;
 
   return (
-    <span className="inline-flex w-fit items-center gap-1.5 border border-ink/20 px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-berry">
+    <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-berry/[0.08] px-3 py-1 text-sm font-semibold text-berry">
       <Icon className="h-3.5 w-3.5" aria-hidden="true" />
       {KIND[kind].label}
     </span>
@@ -116,11 +116,13 @@ function KindTag({ kind }: { kind: AppearanceKind }) {
 
 function AppearanceCard({ item }: { item: Appearance }) {
   return (
-    <article className="flex h-full flex-col border-2 border-ink bg-paper shadow-stamp-sm">
-      <Media item={item} />
-      <div className="flex flex-1 flex-col border-t-2 border-ink p-5">
+    <article className="flex h-full flex-col">
+      <div className="overflow-hidden rounded-2xl">
+        <Media item={item} />
+      </div>
+      <div className="flex flex-1 flex-col pt-5">
         <KindTag kind={item.kind} />
-        <h3 className="mt-3 font-serif text-xl font-semibold leading-snug text-ink">
+        <h3 className="heading mt-3 text-xl leading-snug">
           {item.title}
         </h3>
         <Byline item={item} className="mt-2 text-ink/50" />
@@ -129,7 +131,7 @@ function AppearanceCard({ item }: { item: Appearance }) {
           href={item.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold text-berry transition hover:text-berry-dark"
+          className="link mt-auto inline-flex w-fit items-center gap-1 pt-4"
         >
           {KIND[item.kind].action} on {item.outlet}
           <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -152,15 +154,10 @@ export default function Appearances() {
         path="/appearances"
       />
 
-      <section className="bg-cream-soft py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.15em] text-berry">
-            In the Media
-          </p>
-          <h1 className="mt-3 max-w-3xl font-serif text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
-            Appearances
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-ink/70">
+      <section className="bg-paper pb-4 pt-12 sm:pt-20">
+        <div className="shell">
+          <h1 className="heading text-5xl sm:text-6xl">In the media</h1>
+          <p className="mt-5 max-w-2xl text-xl leading-snug text-ink/80">
             Interviews, podcasts, and writing featuring Ochieng (Pewa Change) Ombaka &mdash;
             making the case for accountable planning, honest budgets, and value
             for every shilling residents have already paid.
@@ -168,21 +165,16 @@ export default function Appearances() {
         </div>
       </section>
 
-      <div className="ledger-rule text-ink/15" aria-hidden="true" />
-
       {featured ? (
         <>
-          <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/50">
-              Most recent
-            </p>
-            <div className="mt-6 grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:items-start">
-              <div className="border-2 border-ink shadow-stamp">
+          <section className="bg-paper pb-20 pt-12 sm:pb-24">
+            <div className="shell grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:items-center lg:gap-12">
+              <div className="overflow-hidden rounded-sheet">
                 <Media item={featured} />
               </div>
               <div>
                 <KindTag kind={featured.kind} />
-                <h2 className="mt-3 font-serif text-2xl font-semibold leading-snug text-ink sm:text-3xl">
+                <h2 className="heading mt-4 text-3xl leading-snug sm:text-[2.125rem]">
                   {featured.title}
                 </h2>
                 <Byline item={featured} className="mt-3 text-ink/50" />
@@ -193,7 +185,7 @@ export default function Appearances() {
                   href={featured.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-berry transition hover:text-berry-dark"
+                  className="link mt-6 inline-flex items-center gap-1"
                 >
                   {KIND[featured.kind].action} on {featured.outlet}
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -209,13 +201,13 @@ export default function Appearances() {
             return (
               <section
                 key={kind}
-                className="border-t-2 border-ink/10 bg-paper-soft py-16"
+                className="bg-cream py-20"
               >
-                <div className="mx-auto max-w-6xl px-4 sm:px-6">
-                  <h2 className="font-serif text-2xl font-semibold text-ink sm:text-3xl">
+                <div className="shell">
+                  <h2 className="heading text-3xl">
                     {KIND[kind].section}
                   </h2>
-                  <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                  <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
                     {items.map((item) => (
                       <AppearanceCard key={item.id} item={item} />
                     ))}
@@ -226,7 +218,7 @@ export default function Appearances() {
           })}
         </>
       ) : (
-        <section className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
+        <section className="shell py-20 text-center">
           <p className="text-lg text-ink/70">
             Ombaka&rsquo;s media appearances will be collected here. Check back
             soon.
@@ -234,13 +226,13 @@ export default function Appearances() {
         </section>
       )}
 
-      <section className="bg-berry py-16">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 sm:px-6 md:flex-row md:items-center md:justify-between">
+      <section className="bg-berry py-16 text-paper sm:py-20">
+        <div className="shell flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="font-serif text-3xl font-semibold text-white">
-              Media &amp; interview requests
+            <h2 className="heading text-3xl" style={{ color: "inherit" }}>
+              Media and interview requests
             </h2>
-            <p className="mt-3 max-w-xl text-white/85">
+            <p className="mt-3 max-w-xl text-paper/85">
               Producers, editors, and podcast hosts: the campaign answers
               interview requests directly. Residents with a question for Ombaka
               can reach the team the same way.
@@ -250,11 +242,8 @@ export default function Appearances() {
             <a href={`mailto:${contact.email}`} className="btn-on-dark">
               {contact.email}
             </a>
-            <Link
-              to="/get-involved"
-              className="inline-flex items-center justify-center gap-2 border-2 border-white bg-transparent px-6 py-3.5 text-base font-semibold text-white transition-colors duration-150 hover:bg-white hover:text-berry"
-            >
-              Get Involved
+            <Link to="/get-involved" className="btn-ghost-on-dark">
+              Get involved
             </Link>
           </div>
         </div>

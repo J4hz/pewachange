@@ -52,34 +52,27 @@ export function LeadCaptureForm({
   };
 
   const isOnDark = variant === "on-dark";
-  const labelClass = `mb-1 block text-xs font-semibold uppercase tracking-wide ${
-    isOnDark ? "text-white/80" : "text-ink/70"
-  }`;
-  const inputClass = `w-full border-2 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-berry focus:ring-offset-2 ${
-    isOnDark
-      ? "border-white/30 bg-white/10 text-white placeholder-white/60 focus:ring-offset-berry"
-      : "border-ink/20 bg-white text-ink placeholder-ink/40 focus:ring-offset-paper"
-  }`;
-  const errorClass = "mt-1 text-sm text-berry-light";
+  const labelClass = isOnDark ? "field-label-on-dark" : "field-label";
+  const inputClass = isOnDark ? "field-on-dark" : "field";
+  const errorClass = isOnDark ? "field-error-on-dark" : "field-error";
 
   if (status === "success") {
     const ward = selectedWard ? wardBySlug(selectedWard) : undefined;
     return (
       <div
-        className={`border-2 p-6 text-center ${
-          isOnDark
-            ? "border-white/30 bg-white/10 text-white"
-            : "border-ink bg-cream-soft text-ink shadow-stamp"
-        } ${className}`}
+        role="status"
+        className={`text-center ${isOnDark ? "text-paper" : "text-ink"} ${className}`}
       >
         <CheckCircle2
           className={`mx-auto mb-3 h-10 w-10 ${
-            isOnDark ? "text-white" : "text-berry"
+            isOnDark ? "text-paper" : "text-berry"
           }`}
           aria-hidden="true"
         />
-        <p className="font-serif text-lg font-semibold">You're on the list.</p>
-        <p className="mt-1 text-sm opacity-90">
+        <p className="heading text-2xl" style={isOnDark ? { color: "inherit" } : undefined}>
+          You&rsquo;re on the list.
+        </p>
+        <p className="mx-auto mt-2 max-w-sm opacity-85">
           Thank you. A member of the campaign team will be in touch.{" "}
           {ward?.whatsappLink
             ? "Join the ward WhatsApp community now to get updates first."
@@ -104,7 +97,7 @@ export function LeadCaptureForm({
     <form
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className={`space-y-4 ${className}`}
+      className={`space-y-5 ${className}`}
     >
       <div>
         <label htmlFor={`${uid}-name`} className={labelClass}>
@@ -160,7 +153,7 @@ export function LeadCaptureForm({
 
       <div>
         <label htmlFor={`${uid}-email`} className={labelClass}>
-          Email <span className="opacity-60">(optional)</span>
+          Email <span className="font-normal opacity-60">(optional)</span>
         </label>
         <input
           id={`${uid}-email`}
@@ -204,10 +197,10 @@ export function LeadCaptureForm({
         {status === "submitting" && (
           <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
         )}
-        Get Updates
+        Get campaign updates
       </button>
       <p
-        className={`text-xs ${isOnDark ? "text-white/70" : "text-ink/60"}`}
+        className={`text-[0.8125rem] leading-relaxed ${isOnDark ? "text-paper/70" : "text-ink/60"}`}
       >
         We'll text and email you campaign updates. No spam. Reply STOP or{" "}
         <Link to="/unsubscribe" className="underline">

@@ -64,7 +64,7 @@ export function SocialProof() {
               <ul className="mt-3 grid grid-cols-3 gap-3">
                 {wardCaptains.map((c) => (
                   <li key={c.name} className="text-center">
-                    <div className="aspect-square bg-berry/10" />
+                    <div className="aspect-square bg-blush" />
                     <p className="mt-2 text-sm font-semibold text-ink">
                       {c.name}
                     </p>

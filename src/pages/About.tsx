@@ -1,7 +1,16 @@
-import { Link } from "react-router-dom";
+import type { ReactNode } from "react";
 import { SEO } from "@/components/SEO";
-import { LeadCaptureForm } from "@/components/LeadCaptureForm";
+import { FinalCta } from "@/components/home/FinalCta";
 import { candidate } from "@/config/site";
+
+function Chapter({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="mt-16 first:mt-0">
+      <h2 className="heading text-3xl sm:text-[2.125rem]">{title}</h2>
+      <div className="mt-5 space-y-5 text-lg leading-[1.7] text-ink/80">{children}</div>
+    </section>
+  );
+}
 
 export default function About() {
   return (
@@ -12,142 +21,107 @@ export default function About() {
         path="/about"
       />
 
-      <section className="bg-cream-soft py-16 sm:py-20">
-        <div className="mx-auto grid max-w-5xl items-center gap-10 px-4 sm:px-6 md:grid-cols-[280px_1fr] md:gap-12">
-          <div className="mx-auto aspect-[4/5] w-full max-w-[280px] border-2 border-ink bg-berry/10 shadow-stamp">
-            <img
-              src="/hero.jpg"
-              alt="Ochieng (Pewa Change) Ombaka, aspiring MP for Dagoretti North"
-              className="h-full w-full object-cover object-top"
-              width={640}
-              height={800}
+      <section className="overflow-hidden bg-paper">
+        <div className="shell grid items-center gap-12 pb-16 pt-10 md:grid-cols-[22rem_1fr] md:gap-16 md:pb-24 md:pt-16">
+          <div className="relative mx-auto w-full max-w-[20rem] md:max-w-none">
+            <div
+              aria-hidden="true"
+              className="absolute -right-[18%] -top-[10%] aspect-square w-[105%] rounded-full bg-blush"
             />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-sheet bg-blush">
+              <img
+                src="/hero.jpg"
+                alt={candidate.fullName}
+                className="h-full w-full object-cover object-top"
+                width={640}
+                height={800}
+              />
+            </div>
           </div>
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.15em] text-berry">
-              Meet Ombaka
-            </p>
-            <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
+            <h1 className="display text-[clamp(2.75rem,6vw,4.5rem)] text-berry">
               {candidate.fullName}
             </h1>
-            <p className="mt-4 text-lg font-medium text-ink/70">
-              Entrepreneur. Policy expert. Community leader. Aspiring MP,
-              Dagoretti North.
+            <p className="mt-6 max-w-xl text-xl leading-snug text-ink sm:text-[1.375rem]">
+              Entrepreneur, policy expert and community leader, standing for
+              Member of Parliament in Dagoretti North.
             </p>
           </div>
         </div>
       </section>
 
-      <div className="ledger-rule text-ink/15" aria-hidden="true" />
+      <article className="bg-paper pb-24">
+        <div className="shell">
+          <div className="mx-auto max-w-[40rem]">
+            <Chapter title="Rooted in the community">
+              <p>
+                Ombaka&rsquo;s case for Dagoretti North doesn&rsquo;t start with a
+                campaign launch. It starts with a job he already holds. He is
+                the current chairperson of the Kileleshwa Ward Neighbourhood
+                Association (KIWANA), the body residents have already entrusted
+                to represent their interests at the ward level.
+              </p>
+              <p>
+                That&rsquo;s a different kind of credential from a manifesto:
+                it&rsquo;s proof he shows up for local problems before
+                there&rsquo;s an election attached to them, and that neighbours
+                in Kileleshwa have already chosen to put him in a position of
+                trust.
+              </p>
+            </Chapter>
 
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <section>
-          <h2 className="font-serif text-2xl font-semibold text-ink sm:text-3xl">
-            Rooted in the community
-          </h2>
-          <div className="mt-4 space-y-4 text-lg leading-relaxed text-ink/80">
-            <p>
-              Ombaka's case for Dagoretti North doesn't start with a campaign
-              launch. It starts with a job he already holds. He is the
-              current chairperson of the Kileleshwa Ward Neighbourhood
-              Association (KIWANA), the body residents have already entrusted
-              to represent their interests at the ward level.
-            </p>
-            <p>
-              That's a different kind of credential from a manifesto: it's
-              proof he shows up for local problems before there's an
-              election attached to them, and that neighbours in Kileleshwa
-              have already chosen to put him in a position of trust.
-            </p>
-          </div>
-        </section>
+            <Chapter title="A builder and a businessman">
+              <p>
+                Ombaka is a co-director of Oyake Enterprises Limited, a
+                consumer products SME operating in Nairobi and Migori County.
+                Running a business in Kenya&rsquo;s regulatory and tax
+                environment means he understands, firsthand, what it takes for
+                an honest enterprise to survive and grow, and what stands in
+                its way.
+              </p>
+              <p>
+                He also runs his own consultancy, Wazo Africa. Between the two,
+                he&rsquo;s spent years on the operating side of the economy
+                this constituency depends on: the small businesses, traders,
+                and informal workers who carry Dagoretti North, the same people
+                his commitment to jobs and dignity is built around.
+              </p>
+            </Chapter>
 
-        <section className="mt-14">
-          <h2 className="font-serif text-2xl font-semibold text-ink sm:text-3xl">
-            A builder and a businessman
-          </h2>
-          <div className="mt-4 space-y-4 text-lg leading-relaxed text-ink/80">
-            <p>
-              Ombaka is a co-director of Oyake Enterprises Limited, a
-              consumer products SME operating in Nairobi and Migori County.
-              Running a business in Kenya's regulatory and tax environment
-              means he understands, firsthand, what it takes for an
-              honest enterprise to survive and grow, and what stands in its
-              way.
-            </p>
-            <p>
-              He also runs his own consultancy, Wazo Africa. Between the two,
-              he's spent years on the operating side of the economy this
-              constituency depends on: the small businesses, traders, and
-              informal workers who carry Dagoretti North, the same people
-              his "Jobs & Dignity" commitment is built around.
-            </p>
-          </div>
-        </section>
+            <Chapter title="Policy expertise in service of people">
+              <p>
+                As a policy consultant, Ombaka is currently working on market
+                systems as a development approach in Northern Kenya, including
+                helping set up regulatory systems for rangeland management, and
+                reviewing national policy on marginalization in the region.
+              </p>
+              <p>
+                This is the unglamorous work of understanding how government
+                systems and public money actually move. It&rsquo;s the exact
+                skillset an accountability-focused MP needs to hold a budget
+                line to account, rather than just complain about it.
+              </p>
+            </Chapter>
 
-        <section className="mt-14">
-          <h2 className="font-serif text-2xl font-semibold text-ink sm:text-3xl">
-            Policy expertise in service of people
-          </h2>
-          <div className="mt-4 space-y-4 text-lg leading-relaxed text-ink/80">
-            <p>
-              As a policy consultant, Ombaka is currently working on market
-              systems as a development approach in Northern Kenya, including
-              helping set up regulatory systems for rangeland management, and
-              reviewing national policy on marginalization in the region.
-            </p>
-            <p>
-              This is the unglamorous work of understanding how government
-              systems and public money actually move. It's the exact
-              skillset an accountability-focused MP needs to hold a budget
-              line to account, rather than just complain about it.
-            </p>
+            <Chapter title="Faith and family">
+              <p>
+                Ombaka is a husband and a father, and an African Christian
+                apologist by conviction. He holds strong views on God&rsquo;s
+                redemptive purpose for enterprise, and on the central role of
+                social justice in building an environment where business, and
+                the people who depend on it, can genuinely thrive.
+              </p>
+              <p>
+                That conviction shows up in his service with the Hesabika
+                Trust, an institution that catalyses Christians in Kenya to
+                turn concern into action.
+              </p>
+            </Chapter>
           </div>
-        </section>
-
-        <section className="mt-14">
-          <h2 className="font-serif text-2xl font-semibold text-ink sm:text-3xl">
-            Faith and family
-          </h2>
-          <div className="mt-4 space-y-4 text-lg leading-relaxed text-ink/80">
-            <p>
-              Ombaka is a husband and a father, and an African Christian
-              apologist by conviction. He holds strong views on God's
-              redemptive purpose for enterprise, and on the central role of
-              social justice in building an environment where business, and
-              the people who depend on it, can genuinely thrive.
-            </p>
-            <p>
-              That conviction shows up in his service with the Hesabika
-              Trust, an institution that catalyses Christians in Kenya to
-              turn concern into action.
-            </p>
-          </div>
-        </section>
-      </div>
-
-      <section className="bg-berry py-20">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 md:grid-cols-2 md:items-center">
-          <div>
-            <h2 className="font-serif text-3xl font-semibold text-white sm:text-4xl">
-              One promise: accountability for every shilling
-            </h2>
-            <p className="mt-3 text-white/85">
-              Ombaka is standing for Member of Parliament, Dagoretti North on
-              one promise: that every taxpayer shilling is accounted for.
-              Join the campaign, or head to Get Involved to find your ward
-              community.
-            </p>
-            <Link to="/get-involved" className="btn-on-dark mt-6">
-              Get Involved
-            </Link>
-          </div>
-          <LeadCaptureForm
-            variant="on-dark"
-            className="border-2 border-white/30 bg-white/5 p-6"
-          />
         </div>
-      </section>
+      </article>
+
+      <FinalCta />
     </>
   );
 }

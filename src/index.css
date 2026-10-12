@@ -5,6 +5,24 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-size: 1.0625rem; /* 17px: comfortable on small phones without zooming */
+    line-height: 1.6;
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -22,34 +40,115 @@
   }
 
   ::selection {
-    background-color: #b43052;
-    color: #ffffff;
+    background-color: #781627;
+    color: #f2ddc8;
   }
 
   :focus-visible {
-    outline: 3px solid #b43052;
-    outline-offset: 2px;
+    outline: 3px solid #781627;
+    outline-offset: 3px;
   }
 }
 
 @layer components {
   /*
-   * One primary button treatment, used everywhere a CTA appears (previously
-   * split between a flat black button and a berry outline button — this
-   * consolidates to a single premium interaction: a hard "stamp" shadow that
-   * compresses flat on press, like a rubber date-stamp.
+   * The brand voice: Fraunces at its heaviest, italic, with the SOFT axis
+   * fully rounded and WONK on — the closest a web font gets to the rounded
+   * italic of the Pewa Change wordmark. Reserved for display lines and the
+   * brand name; never body copy.
    */
+  .display {
+    @apply font-serif italic;
+    font-weight: 800;
+    font-variation-settings: "SOFT" 100, "WONK" 1;
+    letter-spacing: -0.015em;
+    line-height: 0.98;
+  }
+
+  /* Section and page headings: same family, upright, softened, lighter. */
+  .heading {
+    @apply font-serif text-ink;
+    font-weight: 650;
+    font-variation-settings: "SOFT" 60, "WONK" 0;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  /*
+   * Buttons are pills, taken from the PAYBILL / ACCOUNT NUMBER labels on the
+   * donation poster. One shape for everything you can press.
+   */
+  .btn {
+    @apply inline-flex min-h-[3rem] items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold leading-none transition-colors duration-150 disabled:pointer-events-none disabled:opacity-60;
+  }
+
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-ink bg-berry px-6 py-3.5 text-base font-semibold text-white shadow-stamp transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgba(17,17,17,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:pointer-events-none disabled:opacity-60;
+    @apply btn bg-berry text-paper hover:bg-berry-dark;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-ink bg-transparent px-6 py-3.5 text-base font-semibold text-ink transition-colors duration-150 hover:bg-ink hover:text-white;
+    @apply btn border-[1.5px] border-ink/25 text-ink hover:border-ink hover:bg-ink/[0.04];
   }
 
-  /* For use on berry/ink dark bands, where the primary treatment above would clash. */
+  /* On burgundy or ink bands. */
   .btn-on-dark {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-white bg-white px-6 py-3.5 text-base font-semibold text-berry shadow-[4px_4px_0_0_rgba(255,255,255,0.35)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_rgba(255,255,255,0.35)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:pointer-events-none disabled:opacity-60;
+    @apply btn bg-paper text-berry hover:bg-white;
+  }
+
+  .btn-ghost-on-dark {
+    @apply btn border-[1.5px] border-paper/40 text-paper hover:border-paper hover:bg-paper/10;
+  }
+
+  /* Text links inside running copy. */
+  .link {
+    @apply font-semibold text-berry underline decoration-berry/30 decoration-[1.5px] underline-offset-[3px] transition-colors hover:decoration-berry;
+  }
+
+  /* Form fields, shared by every form on the site. */
+  .field-label {
+    @apply mb-1.5 block text-[0.9375rem] font-semibold text-ink;
+  }
+
+  .field {
+    @apply block w-full rounded-xl border-[1.5px] border-ink/15 bg-paper-soft px-4 py-3 text-base text-ink placeholder:text-ink/35 transition-colors hover:border-ink/30 focus:border-berry focus:outline-none focus:ring-4 focus:ring-berry/15;
+  }
+
+  .field-error {
+    @apply mt-1.5 text-sm font-medium text-berry;
+  }
+
+  /* Dark-band variants. */
+  .field-label-on-dark {
+    @apply mb-1.5 block text-[0.9375rem] font-semibold text-paper;
+  }
+
+  .field-on-dark {
+    @apply block w-full rounded-xl border-[1.5px] border-paper/25 bg-paper/10 px-4 py-3 text-base text-paper placeholder:text-paper/50 transition-colors hover:border-paper/40 focus:border-paper focus:outline-none focus:ring-4 focus:ring-paper/20;
+  }
+
+  .field-on-dark option {
+    @apply bg-paper text-ink;
+  }
+
+  .field-error-on-dark {
+    @apply mt-1.5 text-sm font-medium text-blush;
+  }
+
+  /* Native selects get our own chevron so they match the text fields. */
+  select.field,
+  select.field-on-dark {
+    @apply appearance-none bg-no-repeat pr-11;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%23781627' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 8 5 5 5-5'/%3E%3C/svg%3E");
+    background-position: right 0.9rem center;
+  }
+
+  select.field-on-dark {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%23F2DDC8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 8 5 5 5-5'/%3E%3C/svg%3E");
+  }
+
+  /* Page shell: one content width and one gutter, used by every section. */
+  .shell {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
 }
 
@@ -59,9 +158,8 @@
   }
 
   /*
-   * Hairline "ledger rule" — a ruler/engraved-plate divider (tick marks over
-   * a baseline) used between major sections instead of a plain border,
-   * reinforcing the audited-document motif structurally, not decoratively.
+   * The following three are only used by the hidden Stats/Plan pages.
+   * Hairline ruler divider.
    */
   .ledger-rule {
     height: 7px;
@@ -88,18 +186,14 @@
   }
 
   /*
-   * Signature "tax receipt" perforated edge — used on stat/record cards.
-   * Deliberately a `background-image` (painted over the card's own
-   * background-color), NOT a `mask-image`: a mask with `repeat-x` only
-   * defines the tile in a thin top band and renders fully transparent
-   * everywhere else, hiding the whole card. A background-image has no such
-   * failure mode — anywhere it doesn't paint just falls through to
-   * background-color, so only the intended top strip is punched out.
+   * Perforated "receipt" top edge on stat cards. A background-image, not a
+   * mask: a repeat-x mask only defines its tile in a thin band and hides the
+   * rest of the card.
    */
   .receipt-edge-top {
     background-image: radial-gradient(
       circle 6px at 8px 0px,
-      #fff 6px,
+      theme('colors.paper.DEFAULT') 6px,
       transparent 6.5px
     );
     background-repeat: repeat-x;

@@ -1,103 +1,103 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { MessageCircle, Mail } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Mail, MessageCircle } from "lucide-react";
 import { Modal } from "@/components/Modal";
 import { LeadCaptureForm } from "@/components/LeadCaptureForm";
-import { Seal } from "@/components/Seal";
 import { candidate, taglines } from "@/config/site";
 
+const ease = [0.16, 1, 0.3, 1] as const;
+
+/**
+ * The official tagline is the headline, set in the wordmark-style italic.
+ * The portrait sits over the peach circle from the logo. This is the site's
+ * one orchestrated motion moment: the tagline's two halves land in turn and
+ * the circle settles in behind the photo.
+ */
 export function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
+  const reduce = useReducedMotion();
+
+  const [firstHalf, secondHalf] = taglines.official.split(/,\s*/);
+
+  const rise = (delay: number) =>
+    reduce
+      ? {}
+      : {
+          initial: { opacity: 0, y: 24 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.8, delay, ease },
+        };
 
   const scrollToWards = () => {
     document
       .getElementById("wards")
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      ?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   };
 
   return (
     <section className="relative overflow-hidden bg-paper">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-4 sm:px-6 md:grid-cols-2 md:pb-24 md:pt-8">
-        <div>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-sm font-semibold uppercase tracking-[0.15em] text-berry"
-          >
-            Dagoretti North &middot; MP 2027
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.08 }}
-            className="mt-4 font-serif text-5xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl md:text-[4.25rem]"
-          >
-            You&rsquo;ve paid.
-            <br />
-            You deserve <span className="text-berry">more.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.16 }}
-            className="mt-6 max-w-md text-lg text-ink/70"
-          >
-            Residents of Kilimani, Gatina, Kabiro, Kawangware and Kileleshwa
-            carry a heavy tax burden and see too little back. Ombaka is
-            running to make every shilling of public money traceable.
-          </motion.p>
+      <div className="shell grid items-center gap-12 pb-20 pt-8 md:grid-cols-[1.35fr_0.65fr] md:gap-12 md:pb-28 md:pt-12 lg:gap-16">
+        <div className="relative z-10">
+          <h1 className="display text-[clamp(2.9rem,6.4vw,5.6rem)] text-berry">
+            <motion.span className="block" {...rise(0.05)}>
+              {firstHalf},
+            </motion.span>
+            <motion.span className="block" {...rise(0.2)}>
+              {secondHalf}.
+            </motion.span>
+          </h1>
 
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.24 }}
-            className="mt-9 flex flex-col gap-3 sm:flex-row"
-          >
-            <button
-              type="button"
-              onClick={() => setModalOpen(true)}
-              className="btn-primary"
-            >
-              <Mail className="h-5 w-5" aria-hidden="true" />
-              Get Updates
-            </button>
-            <button
-              type="button"
-              onClick={scrollToWards}
-              className="btn-secondary"
-            >
-              <MessageCircle className="h-5 w-5" aria-hidden="true" />
-              Join on WhatsApp
-            </button>
-          </motion.div>
-          <p className="mt-3 text-sm text-ink/50">
-            Free. Takes 20 seconds. No spam.
-          </p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.32 }}
-            className="mt-9 inline-flex flex-col border-l-2 border-berry pl-4"
-          >
-            <p className="font-serif text-xl font-semibold italic text-ink">
-              &ldquo;{taglines.official}.&rdquo;
+          <motion.div {...rise(0.4)}>
+            <p className="mt-7 max-w-[34rem] text-xl leading-snug text-ink sm:text-[1.375rem]">
+              {taglines.officialEnglish} {taglines.primary}
             </p>
-            <p className="mt-1 text-sm text-ink/60">
-              {taglines.officialEnglish}{" "}
-              <span className="font-semibold not-italic tracking-wide text-berry">
-                {taglines.hashtag}
-              </span>
+            <p className="mt-4 max-w-[34rem] text-ink/70">
+              Kilimani, Gatina, Kabiro, Kawangware and Kileleshwa carry a heavy
+              tax burden and see too little back. {candidate.shortName} is
+              running to make every shilling of public money traceable.
+            </p>
+
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <button
+                type="button"
+                onClick={() => setModalOpen(true)}
+                className="btn-primary"
+              >
+                <Mail className="h-5 w-5" aria-hidden="true" />
+                Get campaign updates
+              </button>
+              <button
+                type="button"
+                onClick={scrollToWards}
+                className="btn-secondary"
+              >
+                <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                Join your ward on WhatsApp
+              </button>
+            </div>
+            <p className="mt-4 text-sm text-ink/60">
+              Free, and it takes 20 seconds. Join us at{" "}
+              <span className="font-semibold text-berry">{taglines.hashtag}</span>.
             </p>
           </motion.div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-sm md:max-w-none">
-          <div className="aspect-[4/5] w-full border-2 border-ink bg-berry/10 shadow-stamp">
+        <figure className="relative mx-auto w-full max-w-[22rem] md:max-w-[26rem]">
+          <motion.div
+            aria-hidden="true"
+            className="absolute -left-[22%] -top-[8%] aspect-square w-[118%] rounded-full bg-blush"
+            {...(reduce
+              ? {}
+              : {
+                  initial: { scale: 0.85, opacity: 0 },
+                  animate: { scale: 1, opacity: 1 },
+                  transition: { duration: 1.1, delay: 0.1, ease },
+                })}
+          />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-sheet bg-blush">
             <img
               src="/hero.jpg"
-              alt={`${candidate.fullName}, candidate for Dagoretti North Member of Parliament`}
+              alt={`${candidate.fullName}, candidate for Member of Parliament, Dagoretti North`}
               className="h-full w-full object-cover object-top"
               width={640}
               height={800}
@@ -107,27 +107,13 @@ export function Hero() {
               }}
             />
           </div>
-
-          <motion.div
-            className="absolute -bottom-6 -left-6 hidden sm:block"
-            initial={{ opacity: 0, scale: 0.5, rotate: -18 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="rounded-full bg-paper p-1 shadow-stamp-sm">
-              <Seal variant="decorative" size={92} />
-            </div>
-          </motion.div>
-
-          <div className="absolute -bottom-4 -right-4 hidden bg-ink px-5 py-3 text-white sm:block">
-            <p className="text-xs uppercase tracking-wide text-white/60">
-              Positioning
-            </p>
-            <p className="font-serif text-sm font-semibold">
-              The Accountable Son of the Soil
-            </p>
-          </div>
-        </div>
+          <figcaption className="relative mt-4 pl-1">
+            <span className="block font-semibold text-ink">{candidate.fullName}</span>
+            <span className="block text-sm text-ink/65">
+              Candidate for MP, Dagoretti North, {candidate.electionYear}
+            </span>
+          </figcaption>
+        </figure>
       </div>
 
       <Modal

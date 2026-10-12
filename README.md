@@ -18,30 +18,44 @@ ward.
 
 ## Brand palette
 
-The palette was extracted directly from the live site at `pewachange.ke`
-(view-source, not a redesign) rather than invented:
+The palette is sampled from the Pewa Change logo and the "Support the
+movement" donation poster:
 
-- `#B43052` (deep rose/crimson) — the campaign's core accent, used for H1
-  headings and the "Ushuru Imezidi / Maendeleo ni Kidogo" message block.
-  Carried over as `berry` in `tailwind.config.js`.
-- `#E8CEB0` (warm cream) — paired with `#B43052` throughout the source site
-  as a secondary surface color. Carried over as `cream`.
-- `#111111` / `#FFFFFF` — text and background tokens. Carried over as `ink`
-  and `paper`.
-- `#000000` — the fill color of every button on the source site, carried
-  over as `campaign.black` and used for the square-cornered primary CTAs.
+- `#781627` burgundy (`berry`): headings, buttons, links, accents. The same
+  value in the logo wordmark and the donation poster.
+- `#F2DDC8` logo cream (`paper`): page background, header, cards.
+- `#E8D4C4` poster cream (`cream`, `cream-soft`): alternating sections.
+- `#E9C4AF` peach (`blush`): the circle behind the hand.
+- `#2B0C12` near-black burgundy (`ink`): text, borders and the footer, in
+  place of pure black.
 
 All tokens live in `tailwind.config.js` under `colors.berry / .cream / .ink /
-.paper / .campaign`; never hard-code a hex value in a component.
+.paper / .blush`; never hard-code a hex value in a component.
 
-**Typography:** Manrope (body) for continuity with the source site, plus
-Fraunces as the display/headline serif, both loaded via Google Fonts with
-`display=swap` + `preconnect` to protect LCP on cheap Android/3G. Stat
-figures use a monospace stack to read like ledger/receipt figures.
+**Typography:** Fraunces is the brand voice. The `.display` class sets it
+heavy, italic, with the `SOFT` axis fully rounded and `WONK` on, which echoes
+the rounded italic of the Pewa Change wordmark; it is reserved for the hero
+tagline, closing calls to action and the brand name. `.heading` is the same
+family upright and lighter, for section headings. Schibsted Grotesk does all
+the reading: body copy, forms and navigation. Both load from Google Fonts with
+`display=swap` + `preconnect` to protect first paint on cheap Android/3G.
 
-**Signature visual motif:** `<StatCard>` uses a perforated top edge and
-dotted "ledger" line — a tax-receipt visual language reinforcing the
-accountability narrative wherever a number appears.
+**Shape and components** (all in `src/index.css`):
+
+- Pills (`rounded-full`) for everything you press, taken from the PAYBILL
+  labels on the donation poster: `.btn-primary`, `.btn-secondary`,
+  `.btn-on-dark`, `.btn-ghost-on-dark`.
+- One large radius, `rounded-sheet`, for photos and form panels. Nothing else
+  is boxed: lists are separated by thin rules, not cards.
+- `.field`, `.field-label`, `.field-error` (and `-on-dark` variants) for every
+  form input.
+- The peach circle from the logo sits behind the candidate portrait on the
+  homepage and Meet Ombaka.
+- Motion: one orchestrated entrance in the homepage hero, plus the ward
+  switcher. Everything respects `prefers-reduced-motion`.
+
+The hidden Stats page still uses the older receipt motif (`<StatCard>`, the
+`stamp` shadows, `.receipt-edge-top`); restyle it before switching it on.
 
 ## Site architecture — launch lean, expand later
 

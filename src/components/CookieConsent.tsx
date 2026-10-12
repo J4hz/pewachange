@@ -38,9 +38,9 @@ export function CookieConsent() {
       role="dialog"
       aria-live="polite"
       aria-label="Cookie consent"
-      className="fixed inset-x-0 bottom-0 z-[60] border-t-2 border-ink bg-paper px-4 py-4 sm:px-6"
+      className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-3xl rounded-sheet bg-paper p-5 shadow-lift sm:inset-x-6 sm:bottom-6 sm:p-6"
     >
-      <div className="mx-auto flex max-w-6xl flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-ink/80">
           We use optional analytics to see which pages and ward links help
           people join the campaign. Nothing is tracked unless you accept.
@@ -49,14 +49,14 @@ export function CookieConsent() {
           <button
             type="button"
             onClick={() => decide(false)}
-            className="btn-secondary px-4 py-2 text-sm"
+            className="btn-secondary min-h-[2.75rem] px-5 text-sm"
           >
             Decline
           </button>
           <button
             type="button"
             onClick={() => decide(true)}
-            className="btn-primary px-4 py-2 text-sm"
+            className="btn-primary min-h-[2.75rem] px-5 text-sm"
           >
             Accept
           </button>
